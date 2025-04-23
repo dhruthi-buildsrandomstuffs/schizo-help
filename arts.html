@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtNest - Healing Through Creative Expression</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Mascot -->
+        <div class="mascot">
+            <div class="mascot-character">🦋</div>
+            <div id="mascot-message">Welcome to your creative sanctuary</div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <h1 class="welcome-title">ArtNest</h1>
+            <h2 class="welcome-subtitle">Immersive Healing Through Creative Expression</h2>
+            
+            <div class="poetic-title">
+                <h3>Today I am...</h3>
+                <div id="poetic-phrase">floating clouds</div>
+                <button id="generate-title">New title</button>
+            </div>
+            
+            <div class="path-grid">
+                <div class="path-card" data-path="visual-art">
+                    <div class="path-icon">🎨</div>
+                    <div class="path-title">Visual Art</div>
+                </div>
+                <div class="path-card" data-path="poetry">
+                    <div class="path-icon">✍️</div>
+                    <div class="path-title">Poetry</div>
+                </div>
+                <div class="path-card" data-path="music">
+                    <div class="path-icon">🎶</div>
+                    <div class="path-title">Sound & Music</div>
+                </div>
+                <div class="path-card" data-path="photography">
+                    <div class="path-icon">📸</div>
+                    <div class="path-title">Photography</div>
+                </div>
+                <div class="path-card" data-path="movement">
+                    <div class="path-icon">💃</div>
+                    <div class="path-title">Movement</div>
+                </div>
+                <div class="path-card" data-path="collage">
+                    <div class="path-icon">🌸</div>
+                    <div class="path-title">Collage</div>
+                </div>
+            </div>
+            
+            <div class="emotion-input">
+                <h3>How are you feeling today?</h3>
+                <div class="emotion-form">
+                    <input type="text" id="emotion" placeholder="Describe your feeling...">
+                    <button id="emotion-submit">Send</button>
+                </div>
+            </div>
+            
+            <button id="visit-nest" class="visit-nest-button">Visit Your Art Nest</button>
+        </div>
+
+        <!-- Visual Art Screen -->
+        <div id="visual-art-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="visual-art-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Visual Art</h2>
+            
+            <div class="prompt-box">
+                <div id="art-prompt">Draw what makes you feel calm today</div>
+                <button id="new-art-prompt">New Prompt</button>
+            </div>
+            
+            <div class="art-workspace">
+                <div class="tools-panel">
+                    <div class="toolset">
+                        <h4>Colors</h4>
+                        <div class="colors">
+                            <div class="color" style="background-color: #B6DCFE;"></div>
+                            <div class="color" style="background-color: #FFCCD0;"></div>
+                            <div class="color" style="background-color: #C8E6C9;"></div>
+                            <div class="color" style="background-color: #FFE082;"></div>
+                            <div class="color" style="background-color: #E1BEE7;"></div>
+                            <div class="color" style="background-color: #BBDEFB;"></div>
+                            <div class="color" style="background-color: #CFD8DC;"></div>
+                            <div class="color" style="background-color: #212121;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="toolset">
+                        <h4>Brush Size</h4>
+                        <div class="brushes">
+                            <div class="brush small" data-size="5"></div>
+                            <div class="brush medium" data-size="15"></div>
+                            <div class="brush large" data-size="30"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="actions">
+                        <button id="clear-canvas">Clear</button>
+                        <button id="set-timer">Set Timer</button>
+                        <button id="save-artwork">Save to Nest</button>
+                    </div>
+                </div>
+                
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Poetry Screen -->
+        <div id="poetry-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="poetry-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Poetry & Writing</h2>
+            
+            <div class="prompt-box">
+                <div id="poetry-prompt">Write as if you were whispering to the stars</div>
+                <button id="new-poetry-prompt">New Prompt</button>
+            </div>
+            
+            <div class="poetry-workspace">
+                <textarea id="poetry-textarea" placeholder="Your words here..."></textarea>
+                
+                <div class="poetry-tools">
+                    <button id="clear-poetry">Clear</button>
+                    <button id="poetry-set-timer">Set Timer</button>
+                    <button id="save-poetry">Save to Nest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music Screen -->
+        <div id="music-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="music-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Sound & Music</h2>
+            
+            <div class="prompt-box">
+                <div id="music-prompt">Create a sound landscape for your inner peace</div>
+                <button id="new-music-prompt">New Prompt</button>
+            </div>
+            
+            <div class="music-workspace">
+                <div class="sound-sliders">
+                    <div class="sound-slider-container">
+                        <label>Rain</label>
+                        <input type="range" class="sound-slider" data-sound="rain" min="0" max="100" value="0">
+                    </div>
+                    <div class="sound-slider-container">
+                        <label>Piano</label>
+                        <input type="range" class="sound-slider" data-sound="piano" min="0" max="100" value="0">
+                    </div>
+                    <div class="sound-slider-container">
+                        <label>Waves</label>
+                        <input type="range" class="sound-slider" data-sound="waves" min="0" max="100" value="0">
+                    </div>
+                    <div class="sound-slider-container">
+                        <label>Humming</label>
+                        <input type="range" class="sound-slider" data-sound="humming" min="0" max="100" value="0">
+                    </div>
+                </div>
+                
+                <div class="rhythm-pads">
+                    <div class="rhythm-pad" data-note="C">C</div>
+                    <div class="rhythm-pad" data-note="D">D</div>
+                    <div class="rhythm-pad" data-note="E">E</div>
+                    <div class="rhythm-pad" data-note="F">F</div>
+                    <div class="rhythm-pad" data-note="G">G</div>
+                    <div class="rhythm-pad" data-note="A">A</div>
+                    <div class="rhythm-pad" data-note="B">B</div>
+                    <div class="rhythm-pad" data-note="C2">C</div>
+                </div>
+                
+                <div class="music-tools">
+                    <button id="clear-sounds">Clear</button>
+                    <button id="music-set-timer">Set Timer</button>
+                    <button id="save-soundscape">Save to Nest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photography Screen -->
+        <div id="photography-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="photo-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Photography</h2>
+            
+            <div class="prompt-box">
+                <div id="photo-prompt">Find something that makes you feel connected</div>
+                <button id="new-photo-prompt">New Prompt</button>
+            </div>
+            
+            <div class="photo-workspace">
+                <div class="photo-upload">
+                    <label for="photo-input" class="upload-label">
+                        <div class="upload-icon">📷</div>
+                        <div>Click to upload a photo</div>
+                    </label>
+                    <input type="file" id="photo-input" accept="image/*" hidden>
+                </div>
+                
+                <div class="photo-preview">
+                    <img id="photo-preview-img" src="" alt="Preview" style="display: none;">
+                </div>
+                
+                <div class="photo-caption">
+                    <input type="text" id="photo-caption-input" placeholder="Add a caption or title...">
+                </div>
+                
+                <div class="photo-tools">
+                    <button id="clear-photo">Clear</button>
+                    <button id="photo-set-timer">Set Timer</button>
+                    <button id="save-photo">Save to Nest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movement Screen -->
+        <div id="movement-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="movement-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Movement & Dance</h2>
+            
+            <div class="prompt-box">
+                <div id="movement-prompt">Move as if you're floating in water</div>
+                <button id="new-movement-prompt">New Prompt</button>
+            </div>
+            
+            <div class="movement-workspace">
+                <div class="movement-guide">
+                    <div class="guide-icon">💃</div>
+                    <div class="guide-text">
+                        <p>Find a comfortable space where you can move freely.</p>
+                        <p>There is no right or wrong way to move - just follow what feels good.</p>
+                        <p>After your movement, use the space below to reflect.</p>
+                    </div>
+                </div>
+                
+                <div class="movement-reflection">
+                    <h4>My Movement Reflection</h4>
+                    <textarea id="movement-reflection" placeholder="How did moving make you feel? What did you notice?"></textarea>
+                </div>
+                
+                <div class="movement-tools">
+                    <button id="movement-set-timer">Set Timer</button>
+                    <button id="save-movement">Save to Nest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collage Screen -->
+        <div id="collage-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+                <div id="collage-timer-display" class="timer-display">5:00</div>
+            </div>
+            
+            <h2>Collage & Mixed Media</h2>
+            
+            <div class="prompt-box">
+                <div id="collage-prompt">Combine colors and shapes that represent different parts of yourself</div>
+                <button id="new-collage-prompt">New Prompt</button>
+            </div>
+            
+            <div class="collage-workspace">
+                <div class="collage-tools-panel">
+                    <div class="toolset">
+                        <h4>Shapes</h4>
+                        <div class="collage-shapes">
+                            <div class="collage-shape" data-shape="circle">⚪</div>
+                            <div class="collage-shape" data-shape="square">⬜</div>
+                            <div class="collage-shape" data-shape="triangle">△</div>
+                            <div class="collage-shape" data-shape="star">⭐</div>
+                        </div>
+                    </div>
+                    
+                    <div class="toolset">
+                        <h4>Colors</h4>
+                        <div class="collage-colors">
+                            <div class="collage-color" style="background-color: #B6DCFE;"></div>
+                            <div class="collage-color" style="background-color: #FFCCD0;"></div>
+                            <div class="collage-color" style="background-color: #C8E6C9;"></div>
+                            <div class="collage-color" style="background-color: #FFE082;"></div>
+                            <div class="collage-color" style="background-color: #E1BEE7;"></div>
+                            <div class="collage-color" style="background-color: #BBDEFB;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="toolset">
+                        <h4>Size</h4>
+                        <input type="range" id="collage-size-slider" min="10" max="100" value="30">
+                    </div>
+                    
+                    <div class="actions">
+                        <button id="clear-collage">Clear</button>
+                        <button id="collage-set-timer">Set Timer</button>
+                        <button id="save-collage">Save to Nest</button>
+                    </div>
+                </div>
+                
+                <canvas id="collage-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Art Nest Screen -->
+        <div id="art-nest-screen" class="screen">
+            <div class="header">
+                <button class="back-button">Back to Welcome</button>
+            </div>
+            
+            <h2>Your Art Nest</h2>
+            
+            <div class="nest-options">
+                <div class="nest-name">
+                    <input type="text" id="nest-name-input" placeholder="Give your nest a name...">
+                    <button id="save-nest-name">Save Name</button>
+                </div>
+                
+                <div class="nest-filters">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="visual-art">Visual Art</button>
+                    <button class="filter-button" data-filter="poetry">Poetry</button>
+                    <button class="filter-button" data-filter="music">Music</button>
+                    <button class="filter-button" data-filter="photography">Photography</button>
+                    <button class="filter-button" data-filter="movement">Movement</button>
+                    <button class="filter-button" data-filter="collage">Collage</button>
+                </div>
+            </div>
+            
+            <div id="creations-container" class="creations-container">
+                <!-- Creations will be loaded here dynamically -->
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <!-- Timer Modal -->
+        <div id="timer-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Set a Flow Timer</h3>
+                    <span id="timer-modal-close" class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>How many minutes would you like to create?</p>
+                    <input type="number" id="timer-minutes" min="1" max="60" value="5">
+                    <button id="start-timer-button">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creation View Modal -->
+        <div id="creation-view-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="creation-view-title">Creation Title</h3>
+                    <span id="creation-view-close" class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="creation-view-content">
+                        <!-- Creation content will be loaded here -->
+                    </div>
+                    <div id="creation-view-date" class="creation-date"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Celebration Modal -->
+        <div id="celebration-modal" class="modal">
+            <div class="modal-content celebration">
+                <div class="modal-header">
+                    <h3>Creation Saved!</h3>
+                    <span id="celebration-modal-close" class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="celebration-stars" class="celebration-stars"></div>
+                    <div class="celebration-icon">✨</div>
+                    <div id="celebration-message" class="celebration-message">
+                        You've created something beautiful today
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

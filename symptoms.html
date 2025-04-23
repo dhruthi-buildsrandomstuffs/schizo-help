@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gentle Symptom Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Comic+Neue:wght@300;400&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-light: #eaf6ff;
+            --primary: #d6eaff;
+            --primary-dark: #b0d0f0;
+            --accent: #9ec3e6;
+            --text: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 12px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-icon {
+            background: var(--primary-light);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-icon:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            z-index: 100;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .mascot:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: var(--primary-light);
+            border: none;
+            border-radius: var(--radius);
+            padding: 12px 18px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-button.active {
+            background: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 25px;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .symptom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .symptom-item {
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .symptom-item:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .symptom-item.selected {
+            background: var(--primary-dark);
+            border: 2px solid var(--accent);
+        }
+
+        .symptom-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .symptom-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .intensity-selector {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 10px;
+        }
+
+        .intensity-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .intensity-option:hover {
+            background: var(--primary);
+        }
+
+        .intensity-option.selected {
+            background: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .mood-selector {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 15px;
+        }
+
+        .mood-option {
+            font-size: 28px;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.6;
+        }
+
+        .mood-option:hover {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        .mood-option.selected {
+            transform: scale(1.3);
+            opacity: 1;
+        }
+
+        .feelings-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .feeling-tag {
+            background: var(--primary-light);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .feeling-tag:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .feeling-tag.selected {
+            background: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            border-radius: var(--radius);
+            border: 1px solid var(--primary);
+            background: var(--primary-light);
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+            margin: 15px 0;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(176, 208, 240, 0.3);
+        }
+
+        button {
+            background: var(--primary-dark);
+            color: var(--text);
+            border: none;
+            border-radius: var(--radius);
+            padding: 12px 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .button-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .log-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            margin: 20px 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .log-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .daily-logs {
+            display: inline-flex;
+            gap: 15px;
+            padding: 10px 5px;
+        }
+
+        .log-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 15px;
+            min-width: 200px;
+            box-shadow: 0 4px 8px var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .log-card.blue {
+            border-left-color: #90cdf4;
+        }
+
+        .log-card.yellow {
+            border-left-color: #fbd38d;
+        }
+
+        .log-card.pink {
+            border-left-color: #fed7e2;
+        }
+
+        .log-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .log-date {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 8px;
+        }
+
+        .log-mood {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+
+        .log-symptom-pill {
+            display: inline-block;
+            background: var(--primary-light);
+            border-radius: 15px;
+            padding: 4px 10px;
+            font-size: 12px;
+            margin: 3px;
+        }
+
+        .log-notes {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #4a5568;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .grounding-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 90%;
+            width: 350px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .grounding-popup.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .grounding-title {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .grounding-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .grounding-option {
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .grounding-option:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chart-container {
+            height: 250px;
+            margin: 20px 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .affirmation {
+            text-align: center;
+            padding: 15px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 18px;
+            font-weight: 500;
+            color: #5a6274;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        .mascot-message {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 12px 20px;
+            box-shadow: 0 5px 15px var(--shadow);
+            max-width: 200px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .mascot-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mascot-message:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 30px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: white transparent;
+        }
+
+        .breathing-animation {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathing 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathing {
+            0% {
+                transform: scale(0.9);
+                background: var(--primary);
+            }
+            100% {
+                transform: scale(1.1);
+                background: var(--primary-light);
+            }
+        }
+
+        .breathing-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .five-things {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .five-things li {
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .private-mode {
+            filter: blur(10px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .toggle-button {
+            background: transparent;
+            border: 2px solid var(--primary-dark);
+            width: auto;
+        }
+
+        @media (max-width: 600px) {
+            .symptom-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .tab-nav {
+                flex-wrap: wrap;
+            }
+            
+            .header-title h1 {
+                font-size: 22px;
+            }
+            
+            .mascot {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app-container">
+        <div class="header">
+            <div class="header-title">
+                <h1>Gentle Tracker</h1>
+            </div>
+            <div class="header-icons">
+                <button class="action-icon" id="private-toggle" title="Toggle Private Mode">
+                    👁️
+                </button>
+                <button class="action-icon" id="clear-data" title="Clear All Data">
+                    🗑️
+                </button>
+            </div>
+        </div>
+
+        <div class="affirmation" id="daily-affirmation">
+            "Every step you take to track how you feel is an act of self-care."
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-button active" data-tab="new-entry">Today's Entry</button>
+            <button class="tab-button" data-tab="history">My History</button>
+            <button class="tab-button" data-tab="insights">Insights</button>
+        </div>
+
+        <div class="tab-content active" id="new-entry">
+            <div class="card section">
+                <h2>How are you feeling today?</h2>
+                <div class="mood-selector" id="mood-selector">
+                    <div class="mood-option" data-mood="5">😄</div>
+                    <div class="mood-option" data-mood="4">🙂</div>
+                    <div class="mood-option" data-mood="3">😐</div>
+                    <div class="mood-option" data-mood="2">😔</div>
+                    <div class="mood-option" data-mood="1">😞</div>
+                </div>
+
+                <h3>What feelings are you experiencing?</h3>
+                <div class="feelings-list">
+                    <div class="feeling-tag" data-feeling="calm">Calm</div>
+                    <div class="feeling-tag" data-feeling="tense">Tense</div>
+                    <div class="feeling-tag" data-feeling="numb">Numb</div>
+                    <div class="feeling-tag" data-feeling="confused">Confused</div>
+                    <div class="feeling-tag" data-feeling="hopeful">Hopeful</div>
+                    <div class="feeling-tag" data-feeling="tired">Tired</div>
+                    <div class="feeling-tag" data-feeling="overwhelmed">Overwhelmed</div>
+                    <div class="feeling-tag" data-feeling="peaceful">Peaceful</div>
+                </div>
+            </div>
+
+            <div class="card section">
+                <h2>Select Any Symptoms You're Experiencing</h2>
+                <div class="symptom-grid">
+                    <div class="symptom-item" data-symptom="hallucinations">
+                        <div class="symptom-icon">👁️</div>
+                        <div class="symptom-name">Hallucinations</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="paranoia">
+                        <div class="symptom-icon">🔍</div>
+                        <div class="symptom-name">Paranoia</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="anxiety">
+                        <div class="symptom-icon">😰</div>
+                        <div class="symptom-name">Anxiety</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="disorganized-thoughts">
+                        <div class="symptom-icon">💭</div>
+                        <div class="symptom-name">Disorganized Thoughts</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="depression">
+                        <div class="symptom-icon">☁️</div>
+                        <div class="symptom-name">Depression</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="mood-swings">
+                        <div class="symptom-icon">🔄</div>
+                        <div class="symptom-name">Mood Swings</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="isolation">
+                        <div class="symptom-icon">🏝️</div>
+                        <div class="symptom-name">Isolation</div>
+                    </div>
+                    <div class="symptom-item" data-symptom="trouble-sleeping">
+                        <div class="symptom-icon">😴</div>
+                        <div class="symptom-name">Trouble Sleeping</div>
+                    </div>
+                </div>
+
+                <h3>How intense are your symptoms?</h3>
+                <div class="intensity-selector">
+                    <div class="intensity-option" data-intensity="none">None</div>
+                    <div class="intensity-option" data-intensity="mild">Mild</div>
+                    <div class="intensity-option" data-intensity="moderate">Moderate</div>
+                    <div class="intensity-option" data-intensity="severe">Severe</div>
+                </div>
+
+                <h3>Any Notes About Today?</h3>
+                <textarea id="notes-input" placeholder="What might have triggered these feelings? What's helping today?"></textarea>
+
+                <button id="save-entry">Save Today's Entry ✓</button>
+            </div>
+
+            <div class="card section">
+                <h3>Need some support?</h3>
+                <button id="grounding-button">Try a Grounding Exercise 🧘</button>
+                <button id="emergency-plan" class="toggle-button">View My Emergency Plan 🚨</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="history">
+            <div class="card">
+                <h2>Your Recent Entries</h2>
+                <div class="log-container">
+                    <div class="daily-logs" id="daily-logs">
+                        <!-- Logs will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="insights">
+            <div class="card">
+                <h2>Your Week at a Glance</h2>
+                <p style="text-align: center; margin-bottom: 15px;">How your symptoms have changed this week:</p>
+                <div class="chart-container" id="symptom-chart">
+                    <!-- Chart will be rendered here -->
+                </div>
+                <button id="weekly-summary">How am I doing this week? 📊</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mascot" id="mascot-bunny">
+        <img src="/api/placeholder/80/80" alt="Cute bunny mascot" id="mascot-image" />
+    </div>
+
+    <div class="mascot-message" id="mascot-message">
+        Welcome! I'm here to help you track how you're feeling.
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="grounding-popup" id="grounding-popup">
+        <h3 class="grounding-title">Let's take a moment to ground ourselves</h3>
+        <div class="grounding-options">
+            <div class="grounding-option" id="five-things">
+                5 Things I Can See
+            </div>
+            <div class="grounding-option" id="deep-breathing">
+                Deep Breathing Exercise
+            </div>
+            <div class="grounding-option" id="close-grounding">
+                Maybe Later
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let selectedSymptoms = [];
+            let selectedIntensity = '';
+            let selectedMood = '';
+            let selectedFeelings = [];
+            let isPrivateMode = false;
+            let logs = JSON.parse(localStorage.getItem('symptomLogs')) || [];
+            
+            // DOM Elements
+            const symptomItems = document.querySelectorAll('.symptom-item');
+            const intensityOptions = document.querySelectorAll('.intensity-option');
+            const moodOptions = document.querySelectorAll('.mood-option');
+            const feelingTags = document.querySelectorAll('.feeling-tag');
+            const saveButton = document.getElementById('save-entry');
+            const notesInput = document.getElementById('notes-input');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const privateToggle = document.getElementById('private-toggle');
+            const clearData = document.getElementById('clear-data');
+            const appContainer = document.getElementById('app-container');
+            const mascot = document.getElementById('mascot-bunny');
+            const mascotMessage = document.getElementById('mascot-message');
+            const groundingButton = document.getElementById('grounding-button');
+            const groundingPopup = document.getElementById('grounding-popup');
+            const overlay = document.getElementById('overlay');
+            const closeGrounding = document.getElementById('close-grounding');
+            const fiveThings = document.getElementById('five-things');
+            const deepBreathing = document.getElementById('deep-breathing');
+            const weeklyButton = document.getElementById('weekly-summary');
+            const dailyLogs = document.getElementById('daily-logs');
+            const affirmation = document.getElementById('daily-affirmation');
+            const mascotImage = document.getElementById('mascot-image');
+            
+            // Affirmations list
+            const affirmations = [
+                "You are more than your symptoms.",
+                "It's okay to have bad days.",
+                "Every small step matters.",
+                "Your feelings are valid.",
+                "Taking care of yourself is brave.",
+                "This moment will pass.",
+                "You've gotten through tough times before.",
+                "You're doing the best you can today.",
+                "Your tracking helps you understand yourself better.",
+                "Being gentle with yourself is healing."
+            ];
+            
+            // Show random affirmation
+            function showRandomAffirmation() {
+                const random = Math.floor(Math.random() * affirmations.length);
+                affirmation.textContent = `"${affirmations[random]}"`;
+            }
+            
+            showRandomAffirmation();
+            
+            // Mascot states
+            const mascotStates = {
+                default: "/api/placeholder/80/80", // Happy bunny
+                happy: "/api/placeholder/80/80",   // Very happy bunny
+                sad: "/api/placeholder/80/80",     // Sad bunny
+                worried: "/api/placeholder/80/80", // Worried bunny
+                sleeping: "/api/placeholder/80/80", // Sleepy bunny
+                sunglasses: "/api/placeholder/80/80" // Cool bunny (private mode)
+            };
+            
+            // Show mascot message
+            function showMascotMessage(message, duration = 5000) {
+                mascotMessage.textContent = message;
+                mascotMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    mascotMessage.classList.remove('show');
+                }, duration);
+            }
+            
+            // Update mascot based on mood
+            function updateMascot(mood) {
+                if (isPrivateMode) {
+                    mascotImage.src = mascotStates.sunglasses;
+                    return;
+                }
+                
+                if (mood >= 4) {
+                    mascotImage.src = mascotStates.happy;
+                } else if (mood >= 3) {
+                    mascotImage.src = mascotStates.default;
+                } else if (mood >= 2) {
+                    mascotImage.src = mascotStates.worried;
+                } else {
+                    mascotImage.src = mascotStates.sad;
+                }
+            }
+            
+            // Handle Symptom Selection
+            symptomItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const symptom = item.getAttribute('data-symptom');
+                    
+                    if (selectedSymptoms.includes(symptom)) {
+                        // Remove from selection
+                        selectedSymptoms = selectedSymptoms.filter(s => s !== symptom);
+                        item.classList.remove('selected');
+                    } else {
+                        // Add to selection
+                        selectedSymptoms.push(symptom);
+                        item.classList.add('selected');
+                    }
+                });
+            });
+            
+            // Handle Intensity Selection
+            intensityOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Clear previous selection
+                    intensityOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Set new selection
+                    selectedIntensity = option.getAttribute('data-intensity');
+                    option.classList.add('selected');
+                    
+                    // Check if severe - show grounding tools
+                    if (selectedIntensity === 'severe') {
+                        showMascotMessage("I notice you're having a tough day. Would you like to try a grounding exercise?");
+                    }
+                });
+            });
+            
+            // Handle Mood Selection
+            moodOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Clear previous selection
+                    moodOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Set new selection
+                    selectedMood = option.getAttribute('data-mood');
+                    option.classList.add('selected');
+                    
+                    // Update mascot based on mood
+                    updateMascot(parseInt(selectedMood));
+                });
+            });
+            
+            // Handle Feeling Tags
+            feelingTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    const feeling = tag.getAttribute('data-feeling');
+                    
+                    if (selectedFeelings.includes(feeling)) {
+                        // Remove from selection
+                        selectedFeelings = selectedFeelings.filter(f => f !== feeling);
+                        tag.classList.remove('selected');
+                    } else {
+                        // Add to selection
+                        selectedFeelings.push(feeling);
+                        tag.classList.add('selected');
+                    }
+                });
+            });
+            
+            // Tab navigation
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+        
+        // If history tab is selected, refresh logs
+        if (tabId === 'history') {
+            renderLogs();
+        }
+        
+        // If insights tab is selected, render chart
+        if (tabId === 'insights') {
+            renderChart();
+        }
+    });
+});
+
+// Private Mode Toggle
+privateToggle.addEventListener('click', () => {
+    isPrivateMode = !isPrivateMode;
+    if (isPrivateMode) {
+        appContainer.classList.add('private-mode');
+        privateToggle.innerHTML = '🔒';
+        mascotImage.src = mascotStates.sunglasses;
+        showMascotMessage("Privacy mode activated!");
+    } else {
+        appContainer.classList.remove('private-mode');
+        privateToggle.innerHTML = '👁️';
+        updateMascot(selectedMood ? parseInt(selectedMood) : 3);
+        showMascotMessage("Privacy mode deactivated!");
+    }
+});
+
+// Clear Data
+clearData.addEventListener('click', () => {
+    if (confirm("Are you sure you want to clear all your logged data? This cannot be undone.")) {
+        localStorage.removeItem('symptomLogs');
+        logs = [];
+        renderLogs();
+        renderChart();
+        showMascotMessage("All data has been cleared.");
+    }
+});
+
+// Grounding Tool
+groundingButton.addEventListener('click', () => {
+    showGroundingPopup();
+});
+
+function showGroundingPopup() {
+    groundingPopup.classList.add('show');
+    overlay.classList.add('show');
+}
+
+function hideGroundingPopup() {
+    groundingPopup.classList.remove('show');
+    overlay.classList.remove('show');
+}
+
+closeGrounding.addEventListener('click', hideGroundingPopup);
+overlay.addEventListener('click', hideGroundingPopup);
+
+// Five Things Exercise
+fiveThings.addEventListener('click', () => {
+    hideGroundingPopup();
+    groundingPopup.innerHTML = `
+        <h3 class="grounding-title">5 Things I Can See</h3>
+        <ul class="five-things">
+            <li>Find something blue...</li>
+            <li>Find something round...</li>
+            <li>Find something soft...</li>
+            <li>Find something small...</li>
+            <li>Find something that makes you smile...</li>
+        </ul>
+        <button id="close-exercise">Done ✓</button>
+    `;
+    document.getElementById('close-exercise').addEventListener('click', hideGroundingPopup);
+    showGroundingPopup();
+    showMascotMessage("Great job looking around you!");
+});
+
+// Deep Breathing Exercise
+deepBreathing.addEventListener('click', () => {
+    hideGroundingPopup();
+    groundingPopup.innerHTML = `
+        <h3 class="grounding-title">Deep Breathing</h3>
+        <div class="breathing-animation"></div>
+        <p class="breathing-text">Breathe in as the circle grows, and out as it shrinks</p>
+        <button id="close-exercise">Done ✓</button>
+    `;
+    document.getElementById('close-exercise').addEventListener('click', hideGroundingPopup);
+    showGroundingPopup();
+    showMascotMessage("Taking deep breaths helps calm your mind.");
+});
+
+// Mascot interaction
+mascot.addEventListener('click', () => {
+    const messages = [
+        "How are you feeling right now?",
+        "It's brave of you to track your symptoms!",
+        "Remember that you're doing great.",
+        "I'm here to help you keep track.",
+        "Would you like to try a grounding exercise?"
+    ];
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    showMascotMessage(randomMessage);
+});
+
+// Weekly Summary
+weeklyButton.addEventListener('click', () => {
+    const summary = getWeeklySummary();
+    
+    groundingPopup.innerHTML = `
+        <h3 class="grounding-title">Your Week Summary</h3>
+        <p style="margin-bottom: 15px;">${summary.message}</p>
+        <p>Most common feelings: ${summary.topFeelings.join(', ')}</p>
+        <p>Most frequent symptoms: ${summary.topSymptoms.join(', ')}</p>
+        <button id="close-exercise">Close ✓</button>
+    `;
+    document.getElementById('close-exercise').addEventListener('click', hideGroundingPopup);
+    showGroundingPopup();
+});
+
+// Save Entry
+saveButton.addEventListener('click', () => {
+    if (!selectedMood) {
+        showMascotMessage("Please select how you're feeling today before saving.");
+        return;
+    }
+    
+    // Create new log entry
+    const newEntry = {
+        date: new Date().toISOString(),
+        mood: selectedMood,
+        feelings: selectedFeelings,
+        symptoms: selectedSymptoms,
+        intensity: selectedIntensity,
+        notes: notesInput.value
+    };
+    
+    // Add to logs
+    logs.unshift(newEntry);
+    
+    // Save to localStorage
+    localStorage.setItem('symptomLogs', JSON.stringify(logs));
+    
+    // Reset form
+    resetForm();
+    
+    // Show confirmation
+    showMascotMessage("Entry saved! Great job tracking today.");
+    
+    // Render logs
+    renderLogs();
+    
+    // Render chart
+    renderChart();
+    
+    // Show grounding popup if intensity is severe
+    if (selectedIntensity === 'severe') {
+        setTimeout(showGroundingPopup, 1000);
+    }
+});
+
+// Reset Form
+function resetForm() {
+    selectedSymptoms = [];
+    symptomItems.forEach(item => item.classList.remove('selected'));
+    
+    selectedIntensity = '';
+    intensityOptions.forEach(option => option.classList.remove('selected'));
+    
+    selectedFeelings = [];
+    feelingTags.forEach(tag => tag.classList.remove('selected'));
+    
+    notesInput.value = '';
+    
+    // Keep mood selection for mascot state
+}
+
+// Render logs
+function renderLogs() {
+    if (logs.length === 0) {
+        dailyLogs.innerHTML = `<p style="text-align: center; padding: 20px;">No entries yet. Start tracking to see your history here.</p>`;
+        return;
+    }
+    
+    dailyLogs.innerHTML = '';
+    
+    // Get last 7 days of logs (or fewer if not enough)
+    const recentLogs = logs.slice(0, 7);
+    
+    recentLogs.forEach(log => {
+        const date = new Date(log.date);
+        const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        
+        // Determine card color based on intensity
+        let cardClass = 'blue'; // Default
+        if (log.intensity === 'moderate') {
+            cardClass = 'yellow';
+        } else if (log.intensity === 'severe') {
+            cardClass = 'pink';
+        }
+        
+        // Create symptoms pills
+        let symptomPills = '';
+        if (log.symptoms && log.symptoms.length) {
+            log.symptoms.forEach(symptom => {
+                symptomPills += `<span class="log-symptom-pill">${formatSymptomName(symptom)}</span>`;
+            });
+        } else {
+            symptomPills = '<span class="log-symptom-pill">No symptoms</span>';
+        }
+        
+        // Create card
+        const card = document.createElement('div');
+        card.className = `log-card ${cardClass}`;
+        card.innerHTML = `
+            <div class="log-date">${formattedDate}</div>
+            <div class="log-mood">
+                ${getMoodEmoji(log.mood)}
+                <span style="margin-left: 5px;">${log.feelings.join(', ')}</span>
+            </div>
+            <div class="log-symptoms">
+                ${symptomPills}
+            </div>
+            ${log.notes ? `<div class="log-notes">${log.notes}</div>` : ''}
+        `;
+        
+        dailyLogs.appendChild(card);
+    });
+}
+
+// Format symptom name
+function formatSymptomName(symptom) {
+    return symptom
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+// Get mood emoji
+function getMoodEmoji(mood) {
+    const moodMap = {
+        '5': '😄',
+        '4': '🙂',
+        '3': '😐',
+        '2': '😔',
+        '1': '😞'
+    };
+    
+    return moodMap[mood] || '😐';
+}
+
+// Render chart
+function renderChart() {
+    const chartContainer = document.getElementById('symptom-chart');
+    
+    if (logs.length === 0) {
+        chartContainer.innerHTML = `<p style="text-align: center; padding: 20px;">No data yet to display.</p>`;
+        return;
+    }
+    
+    // Get last 7 days of logs (or fewer if not enough)
+    const chartLogs = logs.slice(0, 7).reverse();
+    
+    // Create canvas for chart
+    chartContainer.innerHTML = '<canvas id="myChart" width="400" height="250"></canvas>';
+    
+    // Prepare data
+    const dates = chartLogs.map(log => {
+        const date = new Date(log.date);
+        return date.toLocaleDateString([], {month: 'short', day: 'numeric'});
+    });
+    
+    const moodData = chartLogs.map(log => parseInt(log.mood));
+    const intensityData = chartLogs.map(log => {
+        const intensityMap = {
+            'none': 0,
+            'mild': 1,
+            'moderate': 2,
+            'severe': 3
+        };
+        return intensityMap[log.intensity] || 0;
+    });
+    
+    // Draw simple chart using canvas
+    const canvas = document.getElementById('myChart');
+    const ctx = canvas.getContext('2d');
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Set dimensions
+    const width = canvas.width;
+    const height = canvas.height;
+    const padding = 40;
+    const dataPointRadius = 6;
+    
+    // Draw grid
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    
+    // Horizontal lines
+    for (let i = 0; i <= 5; i++) {
+        const y = padding + (height - 2 * padding) * (1 - i / 5);
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+    }
+    
+    // Draw axes labels
+    ctx.fillStyle = '#718096';
+    ctx.font = '12px Poppins';
+    ctx.textAlign = 'center';
+    
+    // X-axis (dates)
+    const dataPointWidth = (width - 2 * padding) / (dates.length - 1 || 1);
+    dates.forEach((date, i) => {
+        const x = padding + i * dataPointWidth;
+        ctx.fillText(date, x, height - padding / 2);
+    });
+    
+    // Y-axis (values)
+    ctx.textAlign = 'right';
+    for (let i = 0; i <= 5; i++) {
+        const y = padding + (height - 2 * padding) * (1 - i / 5);
+        ctx.fillText(i, padding - 10, y + 4);
+    }
+    
+    // Draw mood line
+    ctx.strokeStyle = '#90cdf4';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    
+    moodData.forEach((mood, i) => {
+        const x = padding + i * dataPointWidth;
+        const y = padding + (height - 2 * padding) * (1 - mood / 5);
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    
+    ctx.stroke();
+    
+    // Draw mood points
+    ctx.fillStyle = '#90cdf4';
+    moodData.forEach((mood, i) => {
+        const x = padding + i * dataPointWidth;
+        const y = padding + (height - 2 * padding) * (1 - mood / 5);
+        
+        ctx.beginPath();
+        ctx.arc(x, y, dataPointRadius, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    
+    // Draw intensity line
+    ctx.strokeStyle = '#fbd38d';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    
+    intensityData.forEach((intensity, i) => {
+        const x = padding + i * dataPointWidth;
+        const y = padding + (height - 2 * padding) * (1 - intensity / 3 * 5/3);
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    
+    ctx.stroke();
+    
+    // Draw intensity points
+    ctx.fillStyle = '#fbd38d';
+    intensityData.forEach((intensity, i) => {
+        const x = padding + i * dataPointWidth;
+        const y = padding + (height - 2 * padding) * (1 - intensity / 3 * 5/3);
+        
+        ctx.beginPath();
+        ctx.arc(x, y, dataPointRadius, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    
+    // Add legend
+    const legendY = padding / 2;
+    
+    // Mood legend
+    ctx.fillStyle = '#90cdf4';
+    ctx.beginPath();
+    ctx.arc(padding, legendY, dataPointRadius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#718096';
+    ctx.textAlign = 'left';
+    ctx.fillText('Mood', padding + 10, legendY + 4);
+    
+    // Intensity legend
+    ctx.fillStyle = '#fbd38d';
+    ctx.beginPath();
+    ctx.arc(width - padding - 60, legendY, dataPointRadius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#718096';
+    ctx.textAlign = 'left';
+    ctx.fillText('Intensity', width - padding - 50, legendY + 4);
+}
+
+// Get weekly summary
+function getWeeklySummary() {
+    if (logs.length === 0) {
+        return {
+            message: "No entries yet. Start tracking to see your trends.",
+            topFeelings: [],
+            topSymptoms: []
+        };
+    }
+    
+    // Get last 7 days of logs (or fewer if not enough)
+    const recentLogs = logs.slice(0, 7);
+    
+    // Calculate average mood
+    const moodSum = recentLogs.reduce((sum, log) => sum + parseInt(log.mood || 3), 0);
+    const avgMood = moodSum / recentLogs.length;
+    
+    // Count feelings
+    const feelingCounts = {};
+    recentLogs.forEach(log => {
+        log.feelings.forEach(feeling => {
+            feelingCounts[feeling] = (feelingCounts[feeling] || 0) + 1;
+        });
+    });
+    
+    // Count symptoms
+    const symptomCounts = {};
+    recentLogs.forEach(log => {
+        log.symptoms.forEach(symptom => {
+            symptomCounts[symptom] = (symptomCounts[symptom] || 0) + 1;
+        });
+    });
+    
+    // Get top feelings and symptoms
+    const topFeelings = Object.entries(feelingCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 2)
+        .map(([feeling]) => feeling);
+    
+    const topSymptoms = Object.entries(symptomCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 2)
+        .map(([symptom]) => formatSymptomName(symptom));
+    
+    // Generate message
+    let message = "";
+    if (avgMood >= 4) {
+        message = "You've been feeling pretty good this week! Keep up your healthy habits.";
+    } else if (avgMood >= 3) {
+        message = "You've had an okay week with some ups and downs.";
+    } else if (avgMood >= 2) {
+        message = "This week has been challenging for you. Remember to be gentle with yourself.";
+    } else {
+        message = "It's been a very tough week. Consider reaching out to someone who supports you.";
+    }
+    
+    return {
+        message,
+        topFeelings,
+        topSymptoms
+    };
+}
+
+// Initialize
+function init() {
+    renderLogs();
+    showMascotMessage("Welcome! How are you feeling today?", 3000);
+    showRandomAffirmation();
+    
+    // Emergency Plan button
+    document.getElementById('emergency-plan').addEventListener('click', () => {
+        groundingPopup.innerHTML = `
+            <h3 class="grounding-title">My Emergency Plan</h3>
+            <p style="margin-bottom: 15px;">When symptoms are severe:</p>
+            <ol style="padding-left: 20px; margin-bottom: 15px;">
+                <li>Take slow, deep breaths</li>
+                <li>Call my support person: [Your contact]</li>
+                <li>Try grounding exercises</li>
+                <li>Call mental health hotline if needed</li>
+                <li>Remember: this will pass</li>
+            </ol>
+            <button id="close-exercise">Close ✓</button>
+        `;
+        document.getElementById('close-exercise').addEventListener('click', hideGroundingPopup);
+        showGroundingPopup();
+    });
+}
+
+ init();
+    });
+</script>
+</body>
+</html>
+</antArtifact>

@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fresh Start - Hope & Passion Recovery Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-light: #d6eaff;
+            --primary: #b0d0f0;
+            --primary-dark: #8ab0d8;
+            --accent: #ffd6ea;
+            --text: #4a5568;
+            --text-light: #718096;
+            --white: #fff;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 15px rgba(176, 208, 240, 0.3);
+            --border-radius: 15px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #eaf6ff;
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #8ab0d8, #b0d0f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(176, 208, 240, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(176, 208, 240, 0.3);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(176, 208, 240, 0.5);
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .flex {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .flex-column {
+            flex-direction: column;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .mascot:hover {
+            transform: scale(1.1);
+        }
+        
+        .mascot-message {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--white);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            max-width: 250px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease;
+            display: none;
+        }
+        
+        .mascot-message.show {
+            display: block;
+        }
+        
+        .mascot-message:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 25px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--white);
+        }
+        
+        .input-field {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-light);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(176, 208, 240, 0.3);
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--primary-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .tag:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .tag button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+            color: var(--text-light);
+        }
+        
+        .emoji-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        
+        .emoji {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+        
+        .selected {
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            padding: 2px;
+        }
+        
+        .goal-plant {
+            width: 100px;
+            height: 150px;
+            margin: 10px auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .goal-text {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .plant-stage-0 {
+            width: 20px;
+            height: 20px;
+            background-color: #a67c52;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-1 {
+            width: 10px;
+            height: 20px;
+            background-color: #7cb342;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-2 {
+            width: 15px;
+            height: 40px;
+            background-color: #7cb342;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-2:before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            width: 10px;
+            height: 5px;
+            background-color: #7cb342;
+            border-radius: 5px;
+        }
+        
+        .plant-stage-3 {
+            width: 15px;
+            height: 50px;
+            background-color: #7cb342;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-3:before, .plant-stage-3:after {
+            content: '';
+            position: absolute;
+            background-color: #7cb342;
+            border-radius: 5px;
+        }
+        
+        .plant-stage-3:before {
+            top: 10px;
+            left: -10px;
+            width: 10px;
+            height: 5px;
+        }
+        
+        .plant-stage-3:after {
+            top: 20px;
+            right: -10px;
+            width: 10px;
+            height: 5px;
+        }
+        
+        .plant-stage-4 {
+            width: 15px;
+            height: 60px;
+            background-color: #7cb342;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-4:before, .plant-stage-4:after {
+            content: '';
+            position: absolute;
+            border-radius: 5px;
+        }
+        
+        .plant-stage-4:before {
+            top: 10px;
+            left: -15px;
+            width: 15px;
+            height: 7px;
+            background-color: #7cb342;
+        }
+        
+        .plant-stage-4:after {
+            top: 25px;
+            right: -15px;
+            width: 15px;
+            height: 7px;
+            background-color: #7cb342;
+        }
+        
+        .plant-stage-5 {
+            width: 15px;
+            height: 70px;
+            background-color: #7cb342;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .plant-stage-5:before, .plant-stage-5:after {
+            content: '';
+            position: absolute;
+        }
+        
+        .plant-stage-5:before {
+            top: 5px;
+            left: -25px;
+            width: 25px;
+            height: 15px;
+            background-color: #ffcc80;
+            border-radius: 15px;
+        }
+        
+        .plant-stage-5:after {
+            top: 15px;
+            right: -25px;
+            width: 25px;
+            height: 15px;
+            background-color: #ffcc80;
+            border-radius: 15px;
+        }
+        
+        .soil {
+            width: 50px;
+            height: 10px;
+            background-color: #795548;
+            border-radius: 5px;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        
+        .mood-selector {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .mood-option {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+            width: 32%;
+        }
+        
+        .mood-option:hover {
+            transform: translateY(-3px);
+        }
+        
+        .mood-low {
+            background-color: #d6eaff;
+        }
+        
+        .mood-medium {
+            background-color: #b0d0f0;
+        }
+        
+        .mood-high {
+            background-color: #8ab0d8;
+        }
+        
+        .activity-container {
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 15px;
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .fog-toolkit {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .fog-tool {
+            padding: 12px 20px;
+            background-color: var(--primary-light);
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .fog-tool:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .journal-entry {
+            background-color: var(--primary-light);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .idea-category {
+            background-color: var(--primary-light);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+        }
+        
+        .idea-category h3 {
+            margin-bottom: 10px;
+        }
+        
+        .idea-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flex {
+                flex-direction: column;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">The Fresh Start</h1>
+            <p class="subtitle">A gentle space to rediscover joy, curiosity, and your sense of purpose</p>
+        </header>
+        
+        <div class="grid">
+            <!-- Daily Spark Generator -->
+            <div class="card">
+                <h2 class="card-title">🌱 Daily Spark Generator</h2>
+                <p>A small, gentle idea to spark curiosity or joy</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <button id="sparkButton" class="btn">Give me a spark today</button>
+                </div>
+                <div id="sparkResult" style="text-align: center; margin: 15px 0; min-height: 60px; font-size: 1.1rem;"></div>
+            </div>
+            
+            <!-- What Makes Me Curious Board -->
+            <div class="card">
+                <h2 class="card-title">🎨 What Makes Me Curious</h2>
+                <p>Collect interests and things you might like to explore</p>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="interestInput" class="input-field" placeholder="Add an interest or curiosity...">
+                    <button id="addInterestBtn" class="btn">Add</button>
+                </div>
+                <div id="interestsContainer" style="min-height: 100px;"></div>
+            </div>
+            
+            <!-- Mood-Inspired Activity Suggestions -->
+            <div class="card">
+                <h2 class="card-title">🌤️ Activity Suggestions</h2>
+                <p>How's your energy level today?</p>
+                <div class="mood-selector">
+                    <div class="mood-option mood-low" id="moodLow">
+                        🌧️ Low
+                    </div>
+                    <div class="mood-option mood-medium" id="moodMedium">
+                        🌥️ Medium
+                    </div>
+                    <div class="mood-option mood-high" id="moodHigh">
+                        🌞 Higher
+                    </div>
+                </div>
+                <div class="activity-container" id="activitySuggestion">
+                    <p>Select your energy level to see suggestions</p>
+                </div>
+            </div>
+            
+            <!-- Joy Journal -->
+            <div class="card">
+                <h2 class="card-title">🌈 Joy Journal</h2>
+                <p>Log tiny moments that brought you joy</p>
+                <div class="emoji-picker">
+                    <span class="emoji" data-emoji="😊">😊</span>
+                    <span class="emoji" data-emoji="🌱">🌱</span>
+                    <span class="emoji" data-emoji="✨">✨</span>
+                    <span class="emoji" data-emoji="🌞">🌞</span>
+                    <span class="emoji" data-emoji="🌈">🌈</span>
+                    <span class="emoji" data-emoji="🎵">🎵</span>
+                </div>
+                <input type="text" id="joyInput" class="input-field" placeholder="Something nice I noticed today...">
+                <button id="addJoyBtn" class="btn">Add to Journal</button>
+                <div id="joyEntries" style="margin-top: 20px;"></div>
+            </div>
+            
+            <!-- Messages from My Future Self -->
+            <div class="card">
+                <h2 class="card-title">💌 Messages to My Future Self</h2>
+                <p>Write notes that will be delivered on later visits</p>
+                <textarea id="futureMessageInput" class="input-field" style="min-height: 100px;" placeholder="Dear future me..."></textarea>
+                <button id="sendFutureMessageBtn" class="btn">Send to Future Me</button>
+                <div id="receivedMessages" style="margin-top: 20px;"></div>
+            </div>
+            
+            <!-- Overcoming the Fog Toolkit -->
+            <div class="card">
+                <h2 class="card-title">🛠️ Overcoming the Fog</h2>
+                <p>Gentle support for difficult moments</p>
+                <div class="fog-toolkit">
+                    <div class="fog-tool" id="feelNumb">I feel numb</div>
+                    <div class="fog-tool" id="cantDoAnything">I can't do anything</div>
+                    <div class="fog-tool" id="missWhoIWas">I miss who I was</div>
+                </div>
+                <div id="fogToolkitContent" style="margin-top: 20px; min-height: 100px;"></div>
+            </div>
+            
+            <!-- Mini Goal Garden -->
+            <div class="card">
+                <h2 class="card-title">🎯 Mini Goal Garden</h2>
+                <p>Plant small goal seeds and watch them grow</p>
+                <div style="margin: 15px 0;">
+                    <input type="text" id="goalInput" class="input-field" placeholder="Plant a small goal seed...">
+                    <button id="plantGoalBtn" class="btn">Plant Goal</button>
+                </div>
+                <div id="goalGarden" class="flex" style="flex-wrap: wrap; justify-content: center;"></div>
+            </div>
+            
+            <!-- Idea Shelf -->
+            <div class="card">
+                <h2 class="card-title">💡 Idea Shelf</h2>
+                <p>Organize thoughts, dreams, and inspirations</p>
+                <div class="flex flex-column">
+                    <div class="idea-category">
+                        <h3>Stuff I want to try one day</h3>
+                        <input type="text" id="tryIdeaInput" class="input-field" placeholder="Something to try...">
+                        <button id="addTryIdeaBtn" class="btn btn-small">Add</button>
+                        <div id="tryIdeasContainer" class="idea-list"></div>
+                    </div>
+                    
+                    <div class="idea-category">
+                        <h3>Places I want to go</h3>
+                        <input type="text" id="placeIdeaInput" class="input-field" placeholder="A place to visit...">
+                        <button id="addPlaceIdeaBtn" class="btn btn-small">Add</button>
+                        <div id="placeIdeasContainer" class="idea-list"></div>
+                    </div>
+                    
+                    <div class="idea-category">
+                        <h3>People or creators I admire</h3>
+                        <input type="text" id="personIdeaInput" class="input-field" placeholder="Someone who inspires you...">
+                        <button id="addPersonIdeaBtn" class="btn btn-small">Add</button>
+                        <div id="personIdeasContainer" class="idea-list"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gentle Affirmations -->
+            <div class="card">
+                <h2 class="card-title">✨ Gentle Affirmations</h2>
+                <p>Calm, hopeful truths for when you need them</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <button id="affirmationButton" class="btn">Remind me something true</button>
+                </div>
+                <div id="affirmationResult" style="text-align: center; margin: 15px 0; min-height: 60px; font-size: 1.1rem;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mascot -->
+    <div class="mascot" id="mascot">
+        <span style="font-size: 2rem;">🐰</span>
+    </div>
+    <div class="mascot-message" id="mascotMessage">
+        Welcome to The Fresh Start. I'm here whenever you need a little company.
+    </div>
+    
+    <script>
+        // Initialize localStorage if needed
+        function initializeStorage() {
+            if (!localStorage.getItem('interests')) {
+                localStorage.setItem('interests', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('joyEntries')) {
+                localStorage.setItem('joyEntries', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('futureMessages')) {
+                localStorage.setItem('futureMessages', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('receivedMessages')) {
+                localStorage.setItem('receivedMessages', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('goals')) {
+                localStorage.setItem('goals', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('tryIdeas')) {
+                localStorage.setItem('tryIdeas', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('placeIdeas')) {
+                localStorage.setItem('placeIdeas', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('personIdeas')) {
+                localStorage.setItem('personIdeas', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('lastVisit')) {
+                localStorage.setItem('lastVisit', Date.now());
+            }
+        }
+        
+        // Daily Spark Generator
+        function setupSparkGenerator() {
+            const sparkButton = document.getElementById('sparkButton');
+            const sparkResult = document.getElementById('sparkResult');
+            
+            const sparks = [
+                "Look up one animal you think is cool",
+                "Listen to the wind outside for 30 seconds",
+                "Draw the weirdest plant you can imagine",
+                "Name three colors you enjoy looking at",
+                "Recall a smell that brings back a memory",
+                "Touch something with an interesting texture",
+                "Hum a tune that popped into your head recently",
+                "Look at the clouds and find shapes",
+                "Stretch your arms above your head and take a deep breath",
+                "Write down one word that feels good to say out loud",
+                "Notice the feeling of air on your skin",
+                "Think of a food you enjoyed as a child",
+                "Doodle a simple shape for 30 seconds",
+                "Name a song that made you feel something",
+                "Drink a sip of water and feel it cooling your throat",
+                "Look at a plant and notice its details",
+                "Think of a place where you felt peaceful once",
+                "Wiggle your toes and notice how it feels",
+                "Name something tiny that made you smile recently",
+                "Close your eyes and listen to the sounds around you"
+            ];
+            
+            sparkButton.addEventListener('click', () => {
+                const randomSpark = sparks[Math.floor(Math.random() * sparks.length)];
+                sparkResult.innerHTML = `"${randomSpark}"`;
+                sparkResult.style.animation = 'none';
+                setTimeout(() => {
+                    sparkResult.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            });
+        }
+        
+        // What Makes Me Curious Board
+        function setupInterestsBoard() {
+            const interestInput = document.getElementById('interestInput');
+            const addInterestBtn = document.getElementById('addInterestBtn');
+            const interestsContainer = document.getElementById('interestsContainer');
+            
+            // Load interests
+            function loadInterests() {
+                const interests = JSON.parse(localStorage.getItem('interests')) || [];
+                interestsContainer.innerHTML = '';
+                
+                interests.forEach((interest, index) => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.innerHTML = `${interest} <button class="remove-interest" data-index="${index}">×</button>`;
+                    interestsContainer.appendChild(tag);
+                });
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-interest').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        const interests = JSON.parse(localStorage.getItem('interests'));
+                        interests.splice(index, 1);
+                        localStorage.setItem('interests', JSON.stringify(interests));
+                        loadInterests();
+                    });
+                });
+            }
+            
+            // Add new interest
+            addInterestBtn.addEventListener('click', () => {
+                const interest = interestInput.value.trim();
+                if (interest) {
+                    const interests = JSON.parse(localStorage.getItem('interests')) || [];
+                    interests.push(interest);
+                    localStorage.setItem('interests', JSON.stringify(interests));
+                    interestInput.value = '';
+                    loadInterests();
+                }
+            });
+            
+            // Add interest on enter key
+            interestInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    addInterestBtn.click();
+                }
+            });
+            
+            loadInterests();
+        }
+        
+        // Mood-Inspired Activity Suggestions
+        function setupMoodActivities() {
+            const moodLow = document.getElementById('moodLow');
+            const moodMedium = document.getElementById('moodMedium');
+            const moodHigh = document.getElementById('moodHigh');
+            const activitySuggestion = document.getElementById('activitySuggestion');
+            
+            const lowActivities = [
+                "Watch the clouds move across the sky for a few minutes",
+                "Listen to a gentle lo-fi playlist",
+                "Wrap yourself in a soft blanket and breathe deeply",
+                "Look at photos of beautiful landscapes",
+                "Cup a warm drink in your hands and focus on the sensation",
+                "Close your eyes and listen to nature sounds",
+                "Stretch your arms above your head and take three deep breaths",
+                "Place your hand on your heart and feel your heartbeat",
+                "Gently massage your own hands or feet",
+                "Look at artwork that feels peaceful to you"
+            ];
+            
+            const mediumActivities = [
+                "Draw a simple circle and add details to make it interesting",
+                "Organize three small things in your space",
+                "Write down three thoughts passing through your mind",
+                "Take a short walk, even if just around your room",
+                "Try a 5-minute gentle stretching routine",
+                "Make a simple snack that requires just a few steps",
+                "Water a plant or look after something living",
+                "Write a short note to someone (you don't have to send it)",
+                "Hum or sing along to a favorite song",
+                "Flip through a book and read any page that catches your eye"
+            ];
+            
+            const highActivities = [
+                "Try a new recipe that sounds interesting",
+                "Start a small creative project you've been thinking about",
+                "Research a topic you've been curious about",
+                "Rearrange a small area of your living space",
+                "Go for a walk somewhere new in your neighborhood",
+                "Call or message someone you haven't spoken to in a while",
+                "Try a new hobby for 20 minutes",
+                "Make a playlist of songs that match your current mood",
+                "Write a short story or poem about something that caught your attention today",
+                "Learn three facts about a subject that interests you"
+            ];
+            
+            moodLow.addEventListener('click', () => {
+                const randomActivity = lowActivities[Math.floor(Math.random() * lowActivities.length)];
+                activitySuggestion.innerHTML = `<p>🌧️ <strong>Low Energy Suggestion:</strong></p>
+                <p style="font-size: 1.1rem; margin-top: 10px;">${randomActivity}</p>`;
+                activitySuggestion.style.animation = 'none';
+                setTimeout(() => {
+                    activitySuggestion.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            });
+            
+            moodMedium.addEventListener('click', () => {
+                const randomActivity = mediumActivities[Math.floor(Math.random() * mediumActivities.length)];
+                activitySuggestion.innerHTML = `<p>🌥️ <strong>Medium Energy Suggestion:</strong></p>
+                <p style="font-size: 1.1rem; margin-top: 10px;">${randomActivity}</p>`;
+                activitySuggestion.style.animation = 'none';
+                setTimeout(() => {
+                    activitySuggestion.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            });
+            
+            moodHigh.addEventListener('click', () => {
+                const randomActivity = highActivities[Math.floor(Math.random() * highActivities.length)];
+                activitySuggestion.innerHTML = `<p>🌞 <strong>Higher Energy Suggestion:</strong></p>
+                <p style="font-size: 1.1rem; margin-top: 10px;">${randomActivity}</p>`;
+                activitySuggestion.style.animation = 'none';
+                setTimeout(() => {
+                    activitySuggestion.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            });
+        }
+        
+        // Joy Journal
+        function setupJoyJournal() {
+            const joyInput = document.getElementById('joyInput');
+            const addJoyBtn = document.getElementById('addJoyBtn');
+            const joyEntries = document.getElementById('joyEntries');
+            let selectedEmoji = '😊';
+            
+            // Select emoji
+            document.querySelectorAll('.emoji').forEach(emoji => {
+                emoji.addEventListener('click', () => {
+                    document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+                    emoji.classList.add('selected');
+                    selectedEmoji = emoji.getAttribute('data-emoji');
+                });
+            });
+            
+            // Set default selected emoji
+            document.querySelector('.emoji').classList.add('selected');
+            
+            // Load joy entries
+            function loadJoyEntries() {
+                const entries = JSON.parse(localStorage.getItem('joyEntries')) || [];
+                joyEntries.innerHTML = '';
+                
+                entries.slice().reverse().forEach((entry, index) => {
+                    const journalEntry = document.createElement('div');
+                    journalEntry.className = 'journal-entry';
+                    journalEntry.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.5rem;">${entry.emoji}</span>
+                            <span style="font-size: 0.8rem; color: var(--text-light);">${new Date(entry.date).toLocaleDateString()}</span>
+                        </div>
+                        <p style="margin-top: 10px;">${entry.text}</p>
+                    `;
+                    joyEntries.appendChild(journalEntry);
+                });
+            }
+            
+            // Add new joy entry
+            addJoyBtn.addEventListener('click', () => {
+                const text = joyInput.value.trim();
+                if (text) {
+                    const entries = JSON.parse(localStorage.getItem('joyEntries')) || [];
+                    entries.push({
+                        emoji: selectedEmoji,
+                        text: text,
+                        date: Date.now()
+                    });
+                    localStorage.setItem('joyEntries', JSON.stringify(entries));
+                    joyInput.value = '';
+                    loadJoyEntries();
+                }
+            });
+            
+            // Add joy entry on enter key
+            joyInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    addJoyBtn.click();
+                }
+            });
+            
+            loadJoyEntries();
+        }
+        
+        // Messages from My Future Self
+        function setupFutureMessages() {
+            const futureMessageInput = document.getElementById('futureMessageInput');
+            const sendFutureMessageBtn = document.getElementById('sendFutureMessageBtn');
+            const receivedMessages = document.getElementById('receivedMessages');
+            
+            // Load received messages
+            function loadReceivedMessages() {
+                const messages = JSON.parse(localStorage.getItem('receivedMessages')) || [];
+                receivedMessages.innerHTML = '';
+                
+                messages.forEach((message, index) => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'journal-entry';
+                    messageDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.1rem;">From your past self</span>
+                            <span style="font-size: 0.8rem; color: var(--text-light);">${new Date(message.date).toLocaleDateString()}</span>
+                        </div>
+                        <p style="margin-top: 10px;">${message.text}</p>
+                    `;
+                    receivedMessages.appendChild(messageDiv);
+                });
+            }
+            
+            // Check for messages to deliver
+            function checkForMessages() {
+                const lastVisit = parseInt(localStorage.getItem('lastVisit')) || Date.now();
+                const currentTime = Date.now();
+                const futureMessages = JSON.parse(localStorage.getItem('futureMessages')) || [];
+                const receivedMessages = JSON.parse(localStorage.getItem('receivedMessages')) || [];
+                
+                // Check if there are messages to deliver (older than 24 hours)
+                const messagesToDeliver = futureMessages.filter(msg => (currentTime - msg.date) > 24 * 60 * 60 * 1000);
+                
+                if (messagesToDeliver.length > 0) {
+                    // Move messages to received
+                    messagesToDeliver.forEach(msg => {
+                        receivedMessages.push(msg);
+                    });
+                    
+                    // Remove delivered messages from future messages
+                    const updatedFutureMessages = futureMessages.filter(msg => (currentTime - msg.date) <= 24 * 60 * 60 * 1000);
+                    
+                    localStorage.setItem('futureMessages', JSON.stringify(updatedFutureMessages));
+                    localStorage.setItem('receivedMessages', JSON.stringify(receivedMessages));
+                    loadReceivedMessages();
+                }
+                
+                // Update last visit time
+                localStorage.setItem('lastVisit', currentTime);
+            }
+            
+            // Send new future message
+            sendFutureMessageBtn.addEventListener('click', () => {
+                const text = futureMessageInput.value.trim();
+                if (text) {
+                    const futureMessages = JSON.parse(localStorage.getItem('futureMessages')) || [];
+                    futureMessages.push({
+                        text: text,
+                        date: Date.now()
+                    });
+                    localStorage.setItem('futureMessages', JSON.stringify(futureMessages));
+                    futureMessageInput.value = '';
+                    showMascotMessage("Message saved for your future self!");
+                }
+            });
+            
+            loadReceivedMessages();
+            checkForMessages();
+        }
+        
+        // Overcoming the Fog Toolkit
+        function setupFogToolkit() {
+            const feelNumb = document.getElementById('feelNumb');
+            const cantDoAnything = document.getElementById('cantDoAnything');
+            const missWhoIWas = document.getElementById('missWhoIWas');
+            const fogToolkitContent = document.getElementById('fogToolkitContent');
+            
+            feelNumb.addEventListener('click', () => {
+                fogToolkitContent.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3>Breathing Animation</h3>
+                        <div id="breathingCircle" style="width: 100px; height: 100px; background-color: var(--primary); border-radius: 50%; margin: 20px auto; transition: transform 4s ease-in-out, background-color 4s ease-in-out;"></div>
+                        <p>Breathe in as the circle grows, and out as it shrinks.</p>
+                        <audio id="cozyAudio" src="https://cdn.freesound.org/previews/419/419407_8374371-lq.mp3" controls style="margin-top: 20px;"></audio>
+                    </div>
+                `;
+                
+                // Setup breathing animation
+                const breathingCircle = document.getElementById('breathingCircle');
+                let growing = true;
+                
+                function animateBreathing() {
+                    if (growing) {
+                        breathingCircle.style.transform = 'scale(1.5)';
+                        breathingCircle.style.backgroundColor = '#8ab0d8';
+                    } else {
+                        breathingCircle.style.transform = 'scale(1)';
+                        breathingCircle.style.backgroundColor = 'var(--primary)';
+                    }
+                    growing = !growing;
+                    setTimeout(animateBreathing, 4000);
+                }
+                
+                animateBreathing();
+            });
+            
+            cantDoAnything.addEventListener('click', () => {
+                const tinyTasks = [
+                    "Drink a glass of water",
+                    "Look out the window for 1 minute",
+                    "Stretch your arms above your head",
+                    "Touch something with an interesting texture",
+                    "Name three things you can see right now",
+                    "Take three deep breaths",
+                    "Move to a different spot in the room",
+                    "Wiggle your fingers and toes",
+                    "Hum a tune for 10 seconds",
+                    "Touch your toes if you can (or just reach down)"
+                ];
+                
+                const randomTask = tinyTasks[Math.floor(Math.random() * tinyTasks.length)];
+                
+                fogToolkitContent.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3>One Small Step</h3>
+                        <p style="font-size: 1.2rem; margin: 20px 0;">Try this one tiny thing:</p>
+                        <div style="background-color: var(--primary-light); padding: 15px; border-radius: var(--border-radius); margin: 20px 0;">
+                            <p style="font-size: 1.3rem;">${randomTask}</p>
+                        </div>
+                        <p>Remember: Each small action counts.</p>
+                        <button id="newTaskBtn" class="btn btn-small" style="margin-top: 15px;">Try a different task</button>
+                    </div>
+                `;
+                
+                document.getElementById('newTaskBtn').addEventListener('click', () => {
+                    cantDoAnything.click();
+                });
+            });
+            
+            missWhoIWas.addEventListener('click', () => {
+                fogToolkitContent.innerHTML = `
+                    <div>
+                        <h3>Gentle Reflection Journal</h3>
+                        <p style="margin: 15px 0;">Write a small note to yourself about one quality you've always had, even in difficult times.</p>
+                        <textarea id="reflectionInput" class="input-field" style="min-height: 100px;" placeholder="One quality I've always had is..."></textarea>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <button id="saveReflectionBtn" class="btn btn-small">Save for later</button>
+                            <button id="justForNowBtn" class="btn btn-small">Just for now</button>
+                        </div>
+                        <div id="pastReflections" style="margin-top: 20px;"></div>
+                    </div>
+                `;
+                
+                // Load past reflections
+                const pastReflections = JSON.parse(localStorage.getItem('reflections')) || [];
+                const pastReflectionsDiv = document.getElementById('pastReflections');
+                
+                pastReflections.forEach(reflection => {
+                    const reflectionDiv = document.createElement('div');
+                    reflectionDiv.className = 'journal-entry';
+                    reflectionDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.1rem;">A part of you</span>
+                            <span style="font-size: 0.8rem; color: var(--text-light);">${new Date(reflection.date).toLocaleDateString()}</span>
+                        </div>
+                        <p style="margin-top: 10px;">${reflection.text}</p>
+                    `;
+                    pastReflectionsDiv.appendChild(reflectionDiv);
+                });
+                
+                // Save reflection
+                document.getElementById('saveReflectionBtn').addEventListener('click', () => {
+                    const text = document.getElementById('reflectionInput').value.trim();
+                    if (text) {
+                        const reflections = JSON.parse(localStorage.getItem('reflections')) || [];
+                        reflections.push({
+                            text: text,
+                            date: Date.now()
+                        });
+                        localStorage.setItem('reflections', JSON.stringify(reflections));
+                        document.getElementById('reflectionInput').value = '';
+                        showMascotMessage("Reflection saved. You can see it anytime you visit this page.");
+                        missWhoIWas.click();
+                    }
+                });
+                
+                // Just for now button
+                document.getElementById('justForNowBtn').addEventListener('click', () => {
+                    document.getElementById('reflectionInput').value = '';
+                    showMascotMessage("It's okay to just reflect without saving. Your thoughts still matter.");
+                });
+            });
+        }
+        
+        // Mini Goal Garden
+        function setupGoalGarden() {
+            const goalInput = document.getElementById('goalInput');
+            const plantGoalBtn = document.getElementById('plantGoalBtn');
+            const goalGarden = document.getElementById('goalGarden');
+            
+            // Load goals
+            function loadGoals() {
+                const goals = JSON.parse(localStorage.getItem('goals')) || [];
+                goalGarden.innerHTML = '';
+                
+                goals.forEach((goal, index) => {
+                    const goalDiv = document.createElement('div');
+                    goalDiv.className = 'goal-plant';
+                    goalDiv.innerHTML = `
+                        <div class="plant-stage-${goal.stage}"></div>
+                        <div class="soil"></div>
+                        <div class="goal-text">${goal.text}</div>
+                        <div style="display: flex; gap: 5px; margin-top: 10px;">
+                            <button class="btn btn-small water-btn" data-index="${index}">Water</button>
+                            <button class="btn btn-small remove-btn" data-index="${index}">Remove</button>
+                        </div>
+                    `;
+                    goalGarden.appendChild(goalDiv);
+                });
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.water-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        const goals = JSON.parse(localStorage.getItem('goals'));
+                        if (goals[index].stage < 5) {
+                            goals[index].stage++;
+                            localStorage.setItem('goals', JSON.stringify(goals));
+                            loadGoals();
+                            if (goals[index].stage === 5) {
+                                showMascotMessage("Your goal has fully bloomed! Amazing work!");
+                            } else {
+                                showMascotMessage("Your goal is growing! Keep going!");
+                            }
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.remove-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.getAttribute('data-index');
+                        const goals = JSON.parse(localStorage.getItem('goals'));
+                        goals.splice(index, 1);
+                        localStorage.setItem('goals', JSON.stringify(goals));
+                        loadGoals();
+                    });
+                });
+            }
+            
+            // Plant new goal
+            plantGoalBtn.addEventListener('click', () => {
+                const text = goalInput.value.trim();
+                if (text) {
+                    const goals = JSON.parse(localStorage.getItem('goals')) || [];
+                    goals.push({
+                        text: text,
+                        stage: 0
+                    });
+                    localStorage.setItem('goals', JSON.stringify(goals));
+                    goalInput.value = '';
+                    loadGoals();
+                    showMascotMessage("Goal seed planted! Water it regularly to help it grow.");
+                }
+            });
+            
+            // Plant goal on enter key
+            goalInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    plantGoalBtn.click();
+                }
+            });
+            
+            loadGoals();
+        }
+        
+        // Idea Shelf
+        function setupIdeaShelf() {
+            const tryIdeaInput = document.getElementById('tryIdeaInput');
+            const addTryIdeaBtn = document.getElementById('addTryIdeaBtn');
+            const tryIdeasContainer = document.getElementById('tryIdeasContainer');
+            
+            const placeIdeaInput = document.getElementById('placeIdeaInput');
+            const addPlaceIdeaBtn = document.getElementById('addPlaceIdeaBtn');
+            const placeIdeasContainer = document.getElementById('placeIdeasContainer');
+            
+            const personIdeaInput = document.getElementById('personIdeaInput');
+            const addPersonIdeaBtn = document.getElementById('addPersonIdeaBtn');
+            const personIdeasContainer = document.getElementById('personIdeasContainer');
+            
+            // Load ideas
+            function loadIdeas(type, container) {
+                const ideas = JSON.parse(localStorage.getItem(type)) || [];
+                container.innerHTML = '';
+                
+                ideas.forEach((idea, index) => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.innerHTML = `${idea} <button class="remove-idea" data-type="${type}" data-index="${index}">×</button>`;
+                    container.appendChild(tag);
+                });
+            }
+            
+            // Add new idea
+            function addIdea(input, type) {
+                const idea = input.value.trim();
+                if (idea) {
+                    const ideas = JSON.parse(localStorage.getItem(type)) || [];
+                    ideas.push(idea);
+                    localStorage.setItem(type, JSON.stringify(ideas));
+                    input.value = '';
+                    loadIdeas(type, document.getElementById(`${type}Container`));
+                }
+            }
+            
+            // Add event listeners
+            addTryIdeaBtn.addEventListener('click', () => {
+                addIdea(tryIdeaInput, 'tryIdeas');
+            });
+            
+            addPlaceIdeaBtn.addEventListener('click', () => {
+                addIdea(placeIdeaInput, 'placeIdeas');
+            });
+            
+            addPersonIdeaBtn.addEventListener('click', () => {
+                addIdea(personIdeaInput, 'personIdeas');
+            });
+            
+            // Add ideas on enter key
+            tryIdeaInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    addTryIdeaBtn.click();
+                }
+            });
+            
+            placeIdeaInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    addPlaceIdeaBtn.click();
+                }
+            });
+            
+            personIdeaInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    addPersonIdeaBtn.click();
+                }
+            });
+            
+            // Load all ideas
+            loadIdeas('tryIdeas', tryIdeasContainer);
+            loadIdeas('placeIdeas', placeIdeasContainer);
+            loadIdeas('personIdeas', personIdeasContainer);
+            
+            // Add event listeners to remove buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-idea')) {
+                    const type = e.target.getAttribute('data-type');
+                    const index = e.target.getAttribute('data-index');
+                    const ideas = JSON.parse(localStorage.getItem(type));
+                    ideas.splice(index, 1);
+                    localStorage.setItem(type, JSON.stringify(ideas));
+                    loadIdeas(type, document.getElementById(`${type}Container`));
+                }
+            });
+        }
+        
+        // Gentle Affirmations
+        function setupAffirmations() {
+            const affirmationButton = document.getElementById('affirmationButton');
+            const affirmationResult = document.getElementById('affirmationResult');
+            
+            const affirmations = [
+                "You can start again any time.",
+                "Your spark isn't gone. Just quiet.",
+                "Existing today is enough.",
+                "Small steps still move you forward.",
+                "Your feelings are valid, whatever they are.",
+                "This moment is not forever.",
+                "You are not your symptoms.",
+                "It's okay to go at your own pace.",
+                "Healing isn't linear, and that's normal.",
+                "Your worth doesn't depend on your productivity.",
+                "Curiosity can come in whispers.",
+                "You're allowed to enjoy simple pleasures.",
+                "Rest is productive too.",
+                "Your journey is your own.",
+                "Even tiny efforts matter.",
+                "You deserve compassion, especially from yourself.",
+                "Your brain is doing its best.",
+                "It's okay to be a work in progress.",
+                "Hope can be quiet and still be real.",
+                "You are more than what your mind tells you."
+            ];
+            
+            affirmationButton.addEventListener('click', () => {
+                const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+                affirmationResult.innerHTML = `"${randomAffirmation}"`;
+                affirmationResult.style.animation = 'none';
+                setTimeout(() => {
+                    affirmationResult.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            });
+        }
+        
+        // Mascot
+        function setupMascot() {
+            const mascot = document.getElementById('mascot');
+            const mascotMessage = document.getElementById('mascotMessage');
+            
+            const messages = [
+                "You're doing great by just showing up.",
+                "It's okay to be curious slowly.",
+                "Small steps are still steps forward.",
+                "Your presence here matters.",
+                "Today is just one day in your journey.",
+                "I'm here whenever you need a little company.",
+                "Remember to be gentle with yourself today.",
+                "Your pace is exactly right for you.",
+                "Every little interaction is a victory.",
+                "Your effort is seen, even when it feels small."
+            ];
+            
+            mascot.addEventListener('click', () => {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                mascotMessage.textContent = randomMessage;
+                mascotMessage.classList.add('show');
+                setTimeout(() => {
+                    mascotMessage.classList.remove('show');
+                }, 5000);
+            });
+            
+            // Occasional mascot encouragement
+            setTimeout(() => {
+                if (Math.random() > 0.7) {
+                    mascot.click();
+                }
+            }, 30000);
+        }
+        
+        // Show mascot message
+        function showMascotMessage(message) {
+            const mascotMessage = document.getElementById('mascotMessage');
+            mascotMessage.textContent = message;
+            mascotMessage.classList.add('show');
+            setTimeout(() => {
+                mascotMessage.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeStorage();
+            setupSparkGenerator();
+            setupInterestsBoard();
+            setupMoodActivities();
+            setupJoyJournal();
+            setupFutureMessages();
+            setupFogToolkit();
+            setupGoalGarden();
+            setupIdeaShelf();
+            setupAffirmations();
+            setupMascot();
+            
+            // Show welcome message on first load
+            setTimeout(() => {
+                showMascotMessage("Welcome to The Fresh Start. I'm here whenever you need a little company.");
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+</antArtifact>
+

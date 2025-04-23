@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamNest | A safe place to drift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a1c4fd;
+            --primary-light: #c2e9fb;
+            --text: #424874;
+            --light-text: #5d6296;
+            --bg: #f2f7ff;
+            --white: #ffffff;
+            --shadow: rgba(149, 157, 203, 0.2);
+            --card-shadow: 0 8px 20px rgba(149, 157, 203, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--primary-light) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(149, 157, 203, 0.25);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card.active .card-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--text);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(149, 157, 203, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(149, 157, 203, 0.3);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--primary-light);
+            border-radius: 12px;
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(161, 196, 253, 0.3);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-bottom: 0;
+        }
+
+        .sound-mixer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sound-item {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .sound-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .sound-item.active {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .sound-controls {
+            margin-top: 20px;
+        }
+
+        .sound-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--light-text);
+        }
+
+        .fade-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .breathing-bubble-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .breathing-bubble {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            text-align: center;
+            animation: breathing 10s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(161, 196, 253, 0.5);
+        }
+
+        @keyframes breathing {
+            0%, 100% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+        }
+
+        .stories-container {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .night-log-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .moon-day {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .moon-day.filled {
+            background: var(--primary-light);
+        }
+
+        .dream-bird {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(149, 157, 203, 0.4);
+            cursor: pointer;
+            z-index: 100;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .dream-bird-message {
+            position: absolute;
+            bottom: 70px;
+            right: 10px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            max-width: 250px;
+            display: none;
+        }
+
+        .dream-bird-message.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            z-index: 100;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.8rem;
+        }
+
+        /* Night Mode */
+        body.night-mode {
+            background: #121836;
+            color: #e0e6ff;
+        }
+
+        body.night-mode .card {
+            background: rgba(30, 41, 82, 0.8);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        body.night-mode input, 
+        body.night-mode textarea, 
+        body.night-mode select {
+            background: rgba(30, 41, 82, 0.6);
+            border-color: #3b4980;
+            color: #e0e6ff;
+        }
+
+        body.night-mode .sound-item {
+            background: rgba(30, 41, 82, 0.5);
+        }
+
+        body.night-mode .sound-item.active {
+            background: rgba(30, 41, 82, 0.9);
+            border-color: var(--primary);
+        }
+
+        body.night-mode .stories-container {
+            background: rgba(30, 41, 82, 0.6);
+        }
+
+        .night-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        body.night-mode .night-toggle {
+            background: #1e2952;
+            color: #e0e6ff;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+
+            .sound-mixer {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>DreamNest</h1>
+            </div>
+            <p class="tagline">A safe place to drift. Sleep is a story you return to.</p>
+        </header>
+
+        <!-- Night Start Ritual -->
+        <div class="card" id="night-ritual">
+            <div class="card-header">
+                <h2 class="card-title">🌌 Night Start Ritual</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Let's begin your gentle journey to sleep with a calming sequence:</p>
+                
+                <div class="ritual-step">
+                    <h3>1. Let's leave the day behind</h3>
+                    <p>Take 5 deep breaths with me:</p>
+                    <div class="breathing-bubble-container">
+                        <div class="breathing-bubble" id="ritual-breathing">Breathe in...<br>Breathe out...</div>
+                    </div>
+                    <textarea placeholder="A gentle affirmation for tonight (e.g. 'I am safe. Sleep will come.')" id="affirmation"></textarea>
+                </div>
+                
+                <div class="ritual-step">
+                    <h3>2. Safe Nest Check</h3>
+                    <p>Let's make sure your sleep space feels secure:</p>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="door-check">
+                        <label for="door-check">Door is how I prefer it</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="light-check">
+                        <label for="light-check">Lighting feels comfortable</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="temp-check">
+                        <label for="temp-check">Temperature feels right</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="custom-check">
+                        <input type="text" placeholder="Add your own check..." id="custom-check-text" style="margin-bottom: 0;">
+                    </div>
+                </div>
+                
+                <div class="ritual-step">
+                    <h3>3. Tonight's Wish</h3>
+                    <p>What's one gentle intention for your sleep tonight?</p>
+                    <input type="text" placeholder="My wish for tonight is..." id="nights-wish">
+                    <button id="save-ritual">Save My Ritual</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sleep Soundscapes Lab -->
+        <div class="card" id="soundscapes">
+            <div class="card-header">
+                <h2 class="card-title">🎧 Sleep Soundscapes Lab</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Layer these gentle sounds to create your perfect sleep atmosphere:</p>
+                
+                <div class="sound-mixer">
+                    <div class="sound-item" data-sound="rain">
+                        <div class="sound-icon">🌧️</div>
+                        <div>Rain on Roof</div>
+                    </div>
+                    <div class="sound-item" data-sound="piano">
+                        <div class="sound-icon">🎹</div>
+                        <div>Gentle Piano</div>
+                    </div>
+                    <div class="sound-item" data-sound="lullaby">
+                        <div class="sound-icon">🎵</div>
+                        <div>Distant Lullaby</div>
+                    </div>
+                    <div class="sound-item" data-sound="forest">
+                        <div class="sound-icon">🌲</div>
+                        <div>Forest Wind</div>
+                    </div>
+                </div>
+                
+                <div class="sound-controls">
+                    <label for="volume">Volume:</label>
+                    <input type="range" id="volume" min="0" max="100" value="50">
+                    
+                    <div class="fade-controls">
+                        <label for="fade-timer">Auto-fade after:</label>
+                        <select id="fade-timer">
+                            <option value="0">Don't fade</option>
+                            <option value="15">15 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="save-mix">Save My Sleep Mix</button>
+                        <button id="play-saved-mix" class="btn-sm">Play Saved Mix</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Racing Thoughts Softener -->
+        <div class="card" id="thought-softener">
+            <div class="card-header">
+                <h2 class="card-title">🪷 Racing Thoughts Softener</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Let your thoughts land here. You don't have to fix them.</p>
+                
+                <select id="thought-prompt">
+                    <option value="">Choose a prompt (optional)...</option>
+                    <option value="What do you wish someone told you today?">What do you wish someone told you today?</option>
+                    <option value="Write down the thought, then write what you wish was true.">Write down the thought, then write what you wish was true.</option>
+                    <option value="If this thought was a visitor, what would you say to it?">If this thought was a visitor, what would you say to it?</option>
+                </select>
+                
+                <textarea id="thought-journal" placeholder="Your thoughts can rest here..."></textarea>
+                
+                <div class="btn-group">
+                    <button id="burn-thoughts">Let This Thought Go</button>
+                    <button id="save-thoughts" class="btn-sm">Save to Journal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Companion / Affirmation Player -->
+        <div class="card" id="voice-companion">
+            <div class="card-header">
+                <h2 class="card-title">💭 Voice Companion</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Play gentle affirmations to ease you into sleep:</p>
+                
+                <select id="affirmation-select">
+                    <option value="safe">You're safe. The night is kind. Sleep is coming.</option>
+                    <option value="kindness">Be gentle with yourself. Your mind deserves rest.</option>
+                    <option value="presence">This moment is yours. Just breathe and be.</option>
+                    <option value="custom">Custom affirmation...</option>
+                </select>
+                
+                <div id="custom-affirmation-input" style="display: none;">
+                    <textarea id="custom-affirmation-text" placeholder="Write your own affirmation..."></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <label for="repeat-count">Repeat:</label>
+                        <select id="repeat-count">
+                            <option value="1">1 time</option>
+                            <option value="3" selected>3 times</option>
+                            <option value="5">5 times</option>
+                            <option value="-1">Loop continuously</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="voice-volume">Volume:</label>
+                        <input type="range" id="voice-volume" min="0" max="100" value="70">
+                    </div>
+                </div>
+                
+                <button id="play-affirmation">Play Affirmation</button>
+            </div>
+        </div>
+
+        <!-- Floating Breathing Bubble -->
+        <div class="card" id="breathing-bubble-card">
+            <div class="card-header">
+                <h2 class="card-title">🕊️ Floating Breathing Bubble</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Follow this gentle breathing rhythm to calm your mind:</p>
+                
+                <select id="breathing-pattern">
+                    <option value="478">4-7-8 Breath (Relaxing)</option>
+                    <option value="44">4-4 Even Breath (Balancing)</option>
+                    <option value="custom">Custom pattern...</option>
+                </select>
+                
+                <div id="custom-breathing" style="display: none;">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inhale-time">Inhale (seconds):</label>
+                            <input type="number" id="inhale-time" min="1" max="10" value="4">
+                        </div>
+                        <div class="col">
+                            <label for="hold-time">Hold (seconds):</label>
+                            <input type="number" id="hold-time" min="0" max="10" value="7">
+                        </div>
+                        <div class="col">
+                            <label for="exhale-time">Exhale (seconds):</label>
+                            <input type="number" id="exhale-time" min="1" max="10" value="8">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="breathing-bubble-container">
+                    <div class="breathing-bubble" id="main-breathing">Breathe with me</div>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="breathing-sound">
+                    <label for="breathing-sound">Enable gentle hum with breath</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="background-mode">
+                    <label for="background-mode">Keep breathing in background mode</label>
+                </div>
+                
+                <button id="start-breathing">Start Breathing Guide</button>
+            </div>
+        </div>
+
+        <!-- "Is This Real?" Night Reassurance Tool -->
+        <div class="card" id="reality-check">
+            <div class="card-header">
+                <h2 class="card-title">🧠 "Is This Real?" Night Reassurance</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Let's walk through this gently, one step at a time:</p>
+                
+                <div class="reality-step" id="reality-step-1">
+                    <h3>What is your body feeling right now?</h3>
+                    <p>Focus on physical sensations - your breath, the weight of your body, the texture of your bedding.</p>
+                    <textarea placeholder="I can feel..."></textarea>
+                    <button class="next-reality-step" data-next="2">Next Step</button>
+                </div>
+                
+                <div class="reality-step" id="reality-step-2" style="display: none;">
+                    <h3>Is this thought kind or fearful?</h3>
+                    <p>Thoughts that feel threatening often aren't reflections of reality.</p>
+                    <div class="btn-group">
+                        <button class="reality-answer" data-type="kind">It feels kind/neutral</button>
+                        <button class="reality-answer" data-type="fearful">It feels fearful</button>
+                    </div>
+                </div>
+                
+                <div class="reality-step" id="reality-step-kind" style="display: none;">
+                    <h3>A gentle reminder:</h3>
+                    <p>Kind thoughts can be trusted more easily. Your perception is clear right now.</p>
+                    <p>Take a moment to breathe and know that you're safe.</p>
+                    <button class="reset-reality-check">Start Over</button>
+                </div>
+                
+                <div class="reality-step" id="reality-step-fearful" style="display: none;">
+                    <h3>A gentle reminder:</h3>
+                    <p>You've felt this before. You're still here.</p>
+                    <p>This moment will pass. You are safe right now.</p>
+                    <p>Fear often magnifies and distorts what's real.</p>
+                    <div class="btn-group">
+                        <button class="next-reality-step" data-next="3">Continue</button>
+                    </div>
+                </div>
+                
+                <div class="reality-step" id="reality-step-3" style="display: none;">
+                    <h3>Try this grounding technique:</h3>
+                    <p>Name 5 things you can see in your room right now.</p>
+                    <textarea placeholder="I can see..."></textarea>
+                    <p>Name 4 things you can touch from where you are.</p>
+                    <textarea placeholder="I can touch..."></textarea>
+                    <button class="next-reality-step" data-next="4">Next Step</button>
+                </div>
+                
+                <div class="reality-step" id="reality-step-4" style="display: none;">
+                    <h3>You are anchored in this moment</h3>
+                    <p>Your body is here, now. You are safe in your nest.</p>
+                    <p>Would you like to try a calming breathing exercise now?</p>
+                    <div class="btn-group">
+                        <button id="start-reality-breathing">Start Breathing Exercise</button>
+                        <button class="reset-reality-check">I feel better now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guided Sleep Stories -->
+        <div class="card" id="sleep-stories">
+            <div class="card-header">
+                <h2 class="card-title">📖 Guided Sleep Stories</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Softly written stories to ease your mind into peaceful sleep:</p>
+                
+                <select id="story-select">
+                    <option value="forest">The Quiet Forest Path</option>
+                    <option value="ocean">Gentle Waves at Dusk</option>
+                    <option value="meadow">The Meadow of Soft Lights</option>
+                </select>
+                
+                <div class="stories-container" id="story-content">
+                    <p>Select a story to begin...</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <label for="text-size">Text Size:</label>
+                        <input type="range" id="text-size" min="1" max="3" value="2">
+                    </div>
+                    <div class="col">
+                        <label for="dim-screen">Screen Brightness:</label>
+                        <input type="range" id="dim-screen" min="0" max="100" value="100">
+                    </div>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="story-autoscroll">
+                    <label for="story-autoscroll">Enable gentle auto-scrolling</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="story-music">
+                    <label for="story-music">Play soft music while reading</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- "Safe Sleep Plan" Builder -->
+        <div class="card" id="sleep-plan">
+            <div class="card-header">
+                <h2 class="card-title">🌙 Safe Sleep Plan Builder</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Create a custom card with your personal sleep essentials:</p>
+                
+                <input type="text" id="plan-name" placeholder="Give your sleep plan a name...">
+                
+                <h3>Evening Checklist:</h3>
+                <div id="plan-checklist">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="plan-item-1" checked>
+                        <input type="text" placeholder="Sleep checklist item..." value="Take evening medication">
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="plan-item-2">
+                        <input type="text" placeholder="Sleep checklist item..." value="Dim the lights 30 minutes before bed">
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="plan-item-3">
+                        <input type="text" placeholder="Sleep checklist item...">
+                    </div>
+                </div>
+                <button id="add-checklist-item">+ Add Item</button>
+                
+                <h3>Soothing Quote or Phrase:</h3>
+                <textarea id="plan-quote" placeholder="A calming reminder for your night...">"Sleep is the best meditation" - Dalai Lama</textarea>
+                
+                <h3>My 3 Go-To Sleep Tools:</h3>
+                <select id="tool-1" class="sleep-tool-select">
+                    <option value="">Choose a tool...</option>
+                    <option value="breathing">Breathing Bubble</option>
+                    <option value="sounds">Sound Mix</option>
+                    <option value="thoughts">Thought Softener</option>
+                    <option value="reality">Reality Check</option>
+                    <option value="stories">Sleep Stories</option>
+                </select>
+                
+                <select id="tool-2" class="sleep-tool-select">
+                    <option value="">Choose a tool...</option>
+                    <option value="breathing">Breathing Bubble</option>
+                    <option value="sounds">Sound Mix</option>
+                    <option value="thoughts">Thought Softener</option>
+                    <option value="reality">Reality Check</option>
+                    <option value="stories">Sleep Stories</option>
+                </select>
+                
+                <select id="tool-3" class="sleep-tool-select">
+                    <option value="">Choose a tool...</option>
+                    <option value="breathing">Breathing Bubble</option>
+                    <option value="sounds">Sound Mix</option>
+                    <option value="thoughts">Thought Softener</option>
+                    <option value="reality">Reality Check</option>
+                    <option value="stories">Sleep Stories</option>
+                </select>
+                
+                <div class="btn-group">
+                    <button id="save-plan">Save Sleep Plan</button>
+                    <button id="pin-plan" class="btn-sm">Pin to Top</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional: Night Log -->
+        <div class="card" id="night-log">
+            <div class="card-header">
+                <h2 class="card-title">🧭 Night Log</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="card-content">
+                <p>Track your sleep journey with this gentle log (visible only to you):</p>
+                
+                <h3>Last Night's Sleep:</h3>
+                <div class="row">
+                    <div class="col">
+                        <label for="sleep-ease">Ease of sleep:</label>
+                        <select id="sleep-ease">
+                            <option value="1">🌧️ Difficult</option>
+                            <option value="2">☁️ Somewhat restless</option>
+                            <option value="3">⛅ Neutral</option>
+                            <option value="4">✨ Fairly easy</option>
+                            <option value="5">🌞 Peaceful</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col">
+                        <label for="voices-hallucinations">Voices or hallucinations:</label>
+                        <select id="voices-hallucinations">
+                            <option value="none">None</option>
+                            <option value="mild">Mild, manageable</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="significant">Significant</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <label for="dream-recall">Dream recall:</label>
+                        <select id="dream-recall">
+                            <option value="none">No dreams recalled</option>
+                            <option value="fragments">Fragments only</option>
+                            <option value="clear">Clear dreams</option>
+                            <option value="vivid">Vivid dreams</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col">
+                        <label for="sleep-duration">Approximate sleep duration:</label>
+                        <select id="sleep-duration">
+                            <option value="less4">Less than 4 hours</option>
+                            <option value="4to6">4-6 hours</option>
+                            <option value="6to8">6-8 hours</option>
+                            <option value="more8">More than 8 hours</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <h3>Notes about last night:</h3>
+                <textarea id="sleep-notes" placeholder="Anything you'd like to remember about your sleep..."></textarea>
+                
+                <h3>Moon Calendar:</h3>
+                <p>Your sleep journey visualized:</p>
+                <div class="night-log-calendar" id="moon-calendar">
+                    <!-- Calendar days will be generated by JavaScript -->
+                </div>
+                
+                <button id="save-log">Save Night's Log</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dreambird Mascot -->
+    <div class="dream-bird" id="dream-bird">🐦</div>
+    <div class="dream-bird-message" id="dream-bird-message">
+        You're floating now. Let go. Let sleep rise.
+    </div>
+
+    <!-- Night Mode Toggle -->
+    <div class="night-toggle" id="night-toggle">🌙</div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Saved successfully!</div>
+
+    <script>
+        // Generate stars for background
+        function generateStars() {
+            const stars = document.getElementById('stars');
+            const count = Math.floor(window.innerWidth * window.innerHeight / 1000);
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random delay
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate stars
+            generateStars();
+            
+            // Card toggle functionality
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            toggleButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    card.classList.toggle('active');
+                    this.textContent = card.classList.contains('active') ? '−' : '+';
+                });
+            });
+            
+            // Night mode toggle
+            const nightToggle = document.getElementById('night-toggle');
+            nightToggle.addEventListener('click', function() {
+                document.body.classList.toggle('night-mode');
+                this.textContent = document.body.classList.contains('night-mode') ? '☀️' : '🌙';
+            });
+            
+            // Dreambird mascot
+            const dreamBird = document.getElementById('dream-bird');
+            const dreamBirdMessage = document.getElementById('dream-bird-message');
+            
+            dreamBird.addEventListener('click', function() {
+                dreamBirdMessage.classList.toggle('active');
+                setTimeout(() => {
+                    dreamBirdMessage.classList.remove('active');
+                }, 5000);
+            });
+            
+            // Show random dreambird messages periodically
+            const messages = [
+                "You're floating now. Let go. Let sleep rise.",
+                "The night is kind to those who rest.",
+                "Your thoughts can settle like leaves on water.",
+                "Sleep is nearby, waiting patiently.",
+                "You are safe in your nest tonight."
+            ];
+            
+            function showRandomMessage() {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                dreamBirdMessage.textContent = messages[randomIndex];
+                dreamBirdMessage.classList.add('active');
+                
+                setTimeout(() => {
+                    dreamBirdMessage.classList.remove('active');
+                }, 5000);
+            }
+            
+            // Show message every 10 minutes
+            setInterval(showRandomMessage, 600000);
+            
+            // Breathing animation for ritual
+            const ritualBreathing = document.getElementById('ritual-breathing');
+            let isRitualBreathing = false;
+            
+            function startRitualBreathing() {
+                if (isRitualBreathing) return;
+                isRitualBreathing = true;
+                
+                let count = 1;
+                ritualBreathing.textContent = `Breath ${count}: Inhale...`;
+                
+                const breathingInterval = setInterval(() => {
+                    if (count > 5) {
+                        clearInterval(breathingInterval);
+                        ritualBreathing.textContent = "Well done";
+                        isRitualBreathing = false;
+                        return;
+                    }
+                    
+                    if (ritualBreathing.textContent.includes('Inhale')) {
+                        ritualBreathing.textContent = `Breath ${count}: Exhale...`;
+                    } else {
+                        count++;
+                        ritualBreathing.textContent = `Breath ${count}: Inhale...`;
+                    }
+                }, 4000);
+            }
+            
+            ritualBreathing.addEventListener('click', startRitualBreathing);
+            
+            // Sound mixer
+            const soundItems = document.querySelectorAll('.sound-item');
+            soundItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    // In a real app, we would play/pause the corresponding sound here
+                });
+            });
+            
+            // Reality check tool
+            const realityStepButtons = document.querySelectorAll('.next-reality-step');
+            realityStepButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const nextStep = this.getAttribute('data-next');
+                    const currentStep = this.closest('.reality-step');
+                    
+                    currentStep.style.display = 'none';
+                    document.getElementById(`reality-step-${nextStep}`).style.display = 'block';
+                });
+            });
+            
+            const realityAnswerButtons = document.querySelectorAll('.reality-answer');
+            realityAnswerButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const currentStep = this.closest('.reality-step');
+                    
+                    currentStep.style.display = 'none';
+                    document.getElementById(`reality-step-${type}`).style.display = 'block';
+                });
+            });
+            
+            const resetRealityButtons = document.querySelectorAll('.reset-reality-check');
+            resetRealityButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.reality-step').forEach(step => {
+                        step.style.display = 'none';
+                    });
+                    document.getElementById('reality-step-1').style.display = 'block';
+                });
+            });
+            
+            // Custom breathing pattern
+            const breathingPattern = document.getElementById('breathing-pattern');
+            const customBreathingDiv = document.getElementById('custom-breathing');
+            
+            breathingPattern.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customBreathingDiv.style.display = 'block';
+                } else {
+                    customBreathingDiv.style.display = 'none';
+                }
+            });
+            
+            // Custom affirmation
+            const affirmationSelect = document.getElementById('affirmation-select');
+            const customAffirmationDiv = document.getElementById('custom-affirmation-input');
+            
+            affirmationSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customAffirmationDiv.style.display = 'block';
+                } else {
+                    customAffirmationDiv.style.display = 'none';
+                }
+            });
+            
+            // Add checklist item
+            const addChecklistItem = document.getElementById('add-checklist-item');
+            const planChecklist = document.getElementById('plan-checklist');
+            
+            addChecklistItem.addEventListener('click', function() {
+                const itemCount = planChecklist.children.length + 1;
+                
+                const checkboxItem = document.createElement('div');
+                checkboxItem.className = 'checkbox-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `plan-item-${itemCount}`;
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'Sleep checklist item...';
+                
+                checkboxItem.appendChild(checkbox);
+                checkboxItem.appendChild(input);
+                
+                planChecklist.appendChild(checkboxItem);
+            });
+            
+            // Sleep stories
+            const storySelect = document.getElementById('story-select');
+            const storyContent = document.getElementById('story-content');
+            
+            const stories = {
+                forest: `<h3>The Quiet Forest Path</h3>
+                        <p>There is a path through a forest that few know about. It winds between tall trees that have stood for hundreds of years.</p>
+                        <p>The ground beneath your feet is soft with fallen pine needles. They create a gentle cushion that muffles all sound.</p>
+                        <p>As you walk, you notice how the light filters through the branches above. It creates patterns of gold and shadow that shift slowly as you move.</p>
+                        <p>A gentle breeze moves through the trees. It carries the scent of pine and earth. The air feels cool and clean in your lungs.</p>
+                        <p>You come to a small clearing where the sunlight pools on the forest floor. In the center is a fallen log, smooth from years of rain and sun.</p>
+                        <p>You sit on the log and feel the warmth of the sun on your face. The forest around you is peaceful. You can hear the distant sound of birds calling to each other.</p>
+                        <p>Time seems to slow down here. There is no rush, no hurry. You can simply be.</p>
+                        <p>As you sit, you notice your breathing becoming slower and deeper. The rhythm matches the gentle sway of the branches above.</p>
+                        <p>Your eyes grow heavy in the dappled sunlight. It would be so easy to lie back on the soft forest floor and drift into sleep.</p>
+                        <p>The forest will watch over you as you rest. It has stood for centuries and will continue to stand, steady and unchanging.</p>
+                        <p>You are safe here. You can let go of any thoughts or worries. They can wait until tomorrow.</p>
+                        <p>Now, there is only the gentle forest, the soft ground beneath you, and the peaceful feeling of letting go...</p>`,
+                
+                ocean: `<h3>Gentle Waves at Dusk</h3>
+                        <p>The sun is setting over a quiet beach. The sky is painted with soft colors – gentle pinks, purples, and oranges that blend together like watercolors.</p>
+                        <p>You're sitting on warm sand that still holds the day's heat. It feels soft between your fingers when you run your hand through it.</p>
+                        <p>Before you stretches the ocean, vast and peaceful. The water reflects the colors of the sky, creating a mirror world of sunset hues.</p>
+                        <p>Waves roll in slowly, one after another. They follow a rhythm as old as time itself. Each wave builds, crests, and then dissolves into foam on the shore.</p>
+                        <p>The sound of the waves is steady and predictable. It creates a soothing background that quiets your thoughts.</p>
+                        <p>With each incoming wave, you feel your body becoming heavier, more relaxed. With each receding wave, any tension flows away from you.</p>
+                        <p>The air carries the clean scent of salt water. You breathe it in deeply, filling your lungs with the purifying sea air.</p>
+                        <p>As the sun dips lower, the first stars appear overhead. They twinkle gently, distant lights in the deepening blue.</p>
+                        <p>You notice how your breathing has naturally synchronized with the waves. In as they approach, out as they retreat.</p>
+                        <p>The beach is empty except for you. This moment of tranquility belongs to you alone.</p>
+                        <p>As darkness falls, the moon casts a silver path across the water. It invites you to follow it into dreams.</p>
+                        <p>You lie back on the sand, which has formed perfectly to support your body. Above you are stars, before you is the rhythmic ocean, and all around you is peace...</p>`,
+                
+                meadow: `<h3>The Meadow of Soft Lights</h3>
+                        <p>There's a hidden meadow that only appears at twilight. It lies between the waking world and the realm of dreams.</p>
+                        <p>The grass in this meadow is soft as silk. It sways gently though there is no wind you can feel. Each blade seems to whisper stories of calm and rest.</p>
+                        <p>As night begins to fall, tiny lights appear among the grasses. They float and drift like earthbound stars, giving off a soft, bluish glow.</p>
+                        <p>You walk slowly through this gentle landscape. With each step, your body feels lighter, as if gravity is gradually releasing its hold.</p>
+                        <p>The air is perfectly still and neither warm nor cool. It feels like a soft blanket around you, protective and comforting.</p>
+                        <p>In the center of the meadow stands an ancient tree. Its branches spread wide, creating a canopy of leaves that shimmer in the twilight.</p>
+                        <p>You sit beneath the tree and lean against its trunk. The bark is smooth and worn, shaped by time to fit the contours of your body perfectly.</p>
+                        <p>The floating lights gather around you, curious and friendly. They dance in slow circles, creating patterns that mesmerize and calm.</p>
+                        <p>From somewhere distant comes the sound of gentle music. It's so faint you can barely hear it – perhaps it's coming from within the tree itself, or from the lights as they dance.</p>
+                        <p>Your eyelids grow heavy as you watch the lights. Each one seems to carry a dream within its glow, waiting to be released when you finally close your eyes.</p>
+                        <p>Time has no meaning in this place. You could stay for moments or hours; it would feel the same.</p>
+                        <p>As your breathing slows, the lights drift closer. They will watch over you as you sleep, ensuring that only peaceful dreams find their way to you tonight...</p>`
+            };
+            
+            storySelect.addEventListener('change', function() {
+                storyContent.innerHTML = stories[this.value] || '<p>Select a story to begin...</p>';
+            });
+            
+            // Text size for stories
+            const textSize = document.getElementById('text-size');
+            textSize.addEventListener('input', function() {
+                const sizes = ["0.9rem", "1rem", "1.2rem"];
+                storyContent.style.fontSize = sizes[this.value - 1];
+            });
+            
+            // Screen dimming
+            const dimScreen = document.getElementById('dim-screen');
+            dimScreen.addEventListener('input', function() {
+                const brightness = this.value / 100;
+                document.body.style.filter = `brightness(${brightness})`;
+            });
+            
+            // Moon calendar
+            const moonCalendar = document.getElementById('moon-calendar');
+            function generateCalendar() {
+                moonCalendar.innerHTML = '';
+                
+                for (let i = 1; i <= 28; i++) {
+                    const moonDay = document.createElement('div');
+                    moonDay.className = 'moon-day';
+                    moonDay.textContent = i;
+                    
+                    // Randomly fill some days for demo
+                    if (Math.random() > 0.7) {
+                        moonDay.classList.add('filled');
+                    }
+                    
+                    moonDay.addEventListener('click', function() {
+                        this.classList.toggle('filled');
+                    });
+                    
+                    moonCalendar.appendChild(moonDay);
+                }
+            }
+            
+            generateCalendar();
+            
+            // Save functionality (simulated)
+            const saveButtons = document.querySelectorAll('[id$="-save"], [id^="save-"]');
+            const toast = document.getElementById('toast');
+            
+            saveButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // In a real app, we would save to localStorage here
+                    toast.textContent = 'Saved successfully!';
+                    toast.classList.add('active');
+                    
+                    setTimeout(() => {
+                        toast.classList.remove('active');
+                    }, 3000);
+                });
+            });
+            
+            // Restore any saved data from localStorage
+            function restoreFromLocalStorage() {
+                // In a real app, we would implement this
+                console.log('Restoring data from localStorage');
+            }
+            
+            restoreFromLocalStorage();
+            
+            // Pin sleep plan functionality
+            const pinPlanButton = document.getElementById('pin-plan');
+            pinPlanButton.addEventListener('click', function() {
+                const sleepPlan = document.getElementById('sleep-plan');
+                const container = document.querySelector('.container');
+                
+                container.removeChild(sleepPlan);
+                container.insertBefore(sleepPlan, container.firstChild.nextSibling);
+                
+                toast.textContent = 'Sleep Plan pinned to top!';
+                toast.classList.add('active');
+                
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 3000);
+            });
+            
+            // Main breathing bubble
+            const mainBreathing = document.getElementById('main-breathing');
+            const startBreathingBtn = document.getElementById('start-breathing');
+            let isBreathing = false;
+            
+            startBreathingBtn.addEventListener('click', function() {
+                if (isBreathing) {
+                    stopBreathing();
+                    this.textContent = 'Start Breathing Guide';
+                } else {
+                    startBreathing();
+                    this.textContent = 'Stop Breathing Guide';
+                }
+            });
+            
+            function startBreathing() {
+                if (isBreathing) return;
+                isBreathing = true;
+                
+                const pattern = document.getElementById('breathing-pattern').value;
+                let inhale, hold, exhale;
+                
+                if (pattern === '478') {
+                    inhale = 4;
+                    hold = 7;
+                    exhale = 8;
+                } else if (pattern === '44') {
+                    inhale = 4;
+                    hold = 0;
+                    exhale = 4;
+                } else { // custom
+                    inhale = parseInt(document.getElementById('inhale-time').value);
+                    hold = parseInt(document.getElementById('hold-time').value);
+                    exhale = parseInt(document.getElementById('exhale-time').value);
+                }
+                
+                const breathingCycle = async () => {
+                    // Inhale
+                    mainBreathing.textContent = 'Breathe in...';
+                    mainBreathing.style.animation = `none`;
+                    void mainBreathing.offsetWidth; // Trigger reflow
+                    mainBreathing.style.animation = `breathing ${inhale * 2}s ease-in`;
+                    await new Promise(resolve => setTimeout(resolve, inhale * 1000));
+                    
+                    // Hold if needed
+                    if (hold > 0) {
+                        mainBreathing.textContent = 'Hold...';
+                        await new Promise(resolve => setTimeout(resolve, hold * 1000));
+                    }
+                    
+                    // Exhale
+                    mainBreathing.textContent = 'Breathe out...';
+                    mainBreathing.style.animation = `none`;
+                    void mainBreathing.offsetWidth; // Trigger reflow
+                    mainBreathing.style.animation = `breathing ${exhale * 2}s ease-out reverse`;
+                    await new Promise(resolve => setTimeout(resolve, exhale * 1000));
+                };
+                
+                async function runBreathingCycle() {
+                    if (!isBreathing) return;
+                    await breathingCycle();
+                    if (isBreathing) {
+                        runBreathingCycle();
+                    }
+                }
+                
+                runBreathingCycle();
+            }
+            
+            function stopBreathing() {
+                isBreathing = false;
+                mainBreathing.textContent = 'Breathe with me';
+                mainBreathing.style.animation = 'breathing 10s infinite ease-in-out';
+            }
+            
+            // Reality check breathing
+            const startRealityBreathing = document.getElementById('start-reality-breathing');
+            startRealityBreathing.addEventListener('click', function() {
+                // Switch to breathing tab
+                document.getElementById('reality-check').classList.remove('active');
+                document.getElementById('breathing-bubble-card').classList.add('active');
+                
+                // Start the breathing
+                startBreathing();
+                startBreathingBtn.textContent = 'Stop Breathing Guide';
+            });
+            
+            // Burn thoughts animation
+            const burnThoughtsBtn = document.getElementById('burn-thoughts');
+            const thoughtJournal = document.getElementById('thought-journal');
+            
+            burnThoughtsBtn.addEventListener('click', function() {
+                if (!thoughtJournal.value.trim()) return;
+                
+                // Create a copy of the text that will be "burned"
+                const burnContainer = document.createElement('div');
+                burnContainer.style.position = 'absolute';
+                burnContainer.style.top = thoughtJournal.offsetTop + 'px';
+                burnContainer.style.left = thoughtJournal.offsetLeft + 'px';
+                burnContainer.style.width = thoughtJournal.offsetWidth + 'px';
+                burnContainer.style.height = thoughtJournal.offsetHeight + 'px';
+                burnContainer.style.background = 'white';
+                burnContainer.style.borderRadius = '12px';
+                burnContainer.style.padding = '12px 15px';
+                burnContainer.style.fontFamily = "'Comfortaa', sans-serif";
+                burnContainer.style.fontSize = '0.9rem';
+                burnContainer.style.color = 'var(--text)';
+                burnContainer.style.transform = 'scale(1)';
+                burnContainer.style.opacity = '1';
+                burnContainer.style.transition = 'all 1.5s ease';
+                burnContainer.style.zIndex = '10';
+                burnContainer.textContent = thoughtJournal.value;
+                
+                document.querySelector('.card-content').appendChild(burnContainer);
+                
+                // Animate the burning
+                setTimeout(() => {
+                    burnContainer.style.transform = 'scale(0.8)';
+                    burnContainer.style.opacity = '0';
+                }, 100);
+                
+                // Remove the element after animation
+                setTimeout(() => {
+                    burnContainer.remove();
+                }, 1500);
+                
+                // Clear the input
+                thoughtJournal.value = '';
+                
+                // Show toast
+                toast.textContent = 'Thought released peacefully';
+                toast.classList.add('active');
+                
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

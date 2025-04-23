@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnchorMind | Gentle tools to ground you when reality feels far</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a3c7e0;
+            --primary-light: #d0e4f3;
+            --primary-dark: #7ba5c1;
+            --secondary: #f7e5e4;
+            --text: #4a5568;
+            --text-light: #718096;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+        
+        body.night-mode {
+            background-color: #132e42;
+            color: #e2ebf3;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 24px 0;
+            text-align: center;
+            background-color: var(--white);
+            box-shadow: 0 1px 3px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+        
+        header.night-mode {
+            background-color: #0d1f2d;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+        
+        .night-mode .logo {
+            color: var(--primary-light);
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        
+        .night-mode .tagline {
+            color: #a0b6c9;
+        }
+        
+        .section {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .night-mode .section {
+            background-color: #1c3a50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px var(--shadow);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+        
+        .section-icon {
+            font-size: 1.6rem;
+            margin-right: 12px;
+            color: var(--primary-dark);
+            background-color: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .night-mode .section-icon {
+            background-color: #2a4d65;
+            color: var(--primary-light);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        
+        .section-toggle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: transform 0.3s ease;
+        }
+        
+        .section-toggle.open {
+            transform: rotate(180deg);
+        }
+        
+        .section-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+        
+        .section-content.open {
+            height: auto;
+            padding-top: 16px;
+        }
+        
+        .card {
+            background-color: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+        
+        .night-mode .card {
+            background-color: #2a4d65;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+        
+        .night-mode .btn {
+            background-color: #5889a8;
+            color: #e2ebf3;
+        }
+        
+        .night-mode .btn:hover {
+            background-color: #7ba5c1;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .night-mode .input {
+            background-color: #1c3a50;
+            border-color: #2a4d65;
+            color: #e2ebf3;
+        }
+        
+        .input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(163, 199, 224, 0.3);
+        }
+        
+        .steps {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 16px;
+            padding: 8px 4px;
+            margin: 0 -4px;
+        }
+        
+        .step {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+        
+        .night-mode .step {
+            background-color: #2a4d65;
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+        
+        .night-mode .step-title {
+            color: var(--primary-light);
+        }
+        
+        .step-content {
+            margin-bottom: 20px;
+        }
+        
+        .step-navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .grid-item {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .night-mode .grid-item {
+            background-color: #2a4d65;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .grid-icon {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        
+        .night-mode .grid-icon {
+            color: var(--primary-light);
+        }
+        
+        .grid-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .grid-description {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        
+        .weather-map {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .weather-day {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .weather-icon {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .night-mode .weather-icon {
+            color: var(--primary-light);
+        }
+        
+        .weather-info {
+            flex-grow: 1;
+        }
+        
+        .weather-date {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .weather-details {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .night-mode .weather-details {
+            color: #a0b6c9;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .night-mode .modal-content {
+            background-color: #1c3a50;
+        }
+        
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--text);
+        }
+        
+        .breathing-animation {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            margin: 32px auto;
+            animation: breathing 5s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+        }
+        
+        .night-mode .breathing-animation {
+            background-color: #5889a8;
+            color: #e2ebf3;
+        }
+        
+        @keyframes breathing {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+        }
+        
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 90;
+            transition: var(--transition);
+        }
+        
+        .night-mode .mascot {
+            background-color: #5889a8;
+        }
+        
+        .mascot:hover {
+            transform: scale(1.1);
+        }
+        
+        .mascot-icon {
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+        
+        .mascot-message {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 200px;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+        
+        .night-mode .mascot-message {
+            background-color: #1c3a50;
+        }
+        
+        .mascot-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .mascot-text {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px var(--shadow);
+            z-index: 90;
+            transition: var(--transition);
+        }
+        
+        .night-mode .mode-toggle {
+            background-color: #2a4d65;
+        }
+        
+        .mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+        
+        .night-mode .mode-icon {
+            color: #e2ebf3;
+        }
+        
+        /* Camera mirror mode */
+        .mirror-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: var(--radius);
+            margin: 20px 0;
+        }
+        
+        .mirror-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Sound loops */
+        .sound-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .sound-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sound-label {
+            font-size: 0.9rem;
+        }
+        
+        /* Real or Not Real game */
+        .game-container {
+            text-align: center;
+        }
+        
+        .game-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: var(--radius);
+        }
+        
+        .game-options {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        /* Custom progress bar */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--primary-light);
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        
+        .night-mode .progress-container {
+            background-color: #2a4d65;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-dark);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .night-mode .progress-bar {
+            background-color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .section-content.open {
+                padding-top: 24px;
+            }
+            
+            .steps {
+                overflow-x: visible;
+                display: block;
+            }
+            
+            .step {
+                flex: none;
+                margin-bottom: 16px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .section {
+                padding: 16px;
+            }
+            
+            .section-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .modal-content {
+                padding: 16px;
+            }
+        }
+        
+        /* Privacy footer */
+        footer {
+            text-align: center;
+            padding: 24px 0;
+            margin-top: 32px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .night-mode footer {
+            color: #a0b6c9;
+        }
+    </style>
+</head>
+<body>
+    <div class="mode-toggle">
+        <i class="fas fa-moon mode-icon"></i>
+    </div>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">AnchorMind</h1>
+            <p class="tagline">Gentle tools to ground you when reality feels far</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Am I Hallucinating? Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h2 class="section-title">Am I Hallucinating?</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <div class="steps" id="hallucinationSteps">
+                    <div class="step" data-step="1">
+                        <h3 class="step-title">Can you touch it?</h3>
+                        <div class="step-content">
+                            <p>Take a moment to consider if you can physically reach out and touch what you're experiencing.</p>
+                        </div>
+                        <div class="step-navigation">
+                            <span></span>
+                            <div>
+                                <button class="btn" data-answer="yes" data-next="2">Yes</button>
+                                <button class="btn" data-answer="no" data-next="2">No</button>
+                                <button class="btn" data-answer="unsure" data-next="2">Not sure</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="2">
+                        <h3 class="step-title">Is anyone else reacting to it?</h3>
+                        <div class="step-content">
+                            <p>Do others around you seem to notice or respond to what you're experiencing?</p>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="1"><i class="fas fa-arrow-left"></i> Back</button>
+                            <div>
+                                <button class="btn" data-answer="yes" data-next="3">Yes</button>
+                                <button class="btn" data-answer="no" data-next="3">No</button>
+                                <button class="btn" data-answer="unsure" data-next="3">Not sure</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="3">
+                        <h3 class="step-title">Can you ask someone?</h3>
+                        <div class="step-content">
+                            <p>If possible, could you ask someone nearby if they experience the same thing?</p>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="2"><i class="fas fa-arrow-left"></i> Back</button>
+                            <div>
+                                <button class="btn" data-answer="yes" data-next="result">Yes</button>
+                                <button class="btn" data-answer="no" data-next="result">No</button>
+                                <button class="btn" data-answer="unsure" data-next="result">Not sure</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="result">
+                        <h3 class="step-title">Let's understand what's happening</h3>
+                        <div class="step-content" id="hallucinationResult">
+                            <p>Based on your answers, you may be experiencing a hallucination. Remember, this is a common experience and not your fault.</p>
+                            <p>Let's try some grounding techniques together.</p>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="3"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn" id="goToGrounding">Try Grounding <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grounding Toolkit Section -->
+        <div class="section" id="groundingSection">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-hand-sparkles"></i>
+                </div>
+                <h2 class="section-title">Grounding Toolkit</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <p>Choose a grounding technique that feels right for you:</p>
+                
+                <div class="grid">
+                    <div class="grid-item" data-modal="modalFiveFourThree">
+                        <div class="grid-icon">
+                            <i class="fas fa-hand"></i>
+                        </div>
+                        <h3 class="grid-title">5-4-3-2-1 Method</h3>
+                        <p class="grid-description">Use your senses to ground yourself</p>
+                    </div>
+                    
+                    <div class="grid-item" data-modal="modalSounds">
+                        <div class="grid-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3 class="grid-title">Calm Sounds</h3>
+                        <p class="grid-description">Listen to soothing sounds</p>
+                    </div>
+                    
+                    <div class="grid-item" data-modal="modalMirror">
+                        <div class="grid-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="grid-title">Mirror Mode</h3>
+                        <p class="grid-description">Use your camera for self-grounding</p>
+                    </div>
+                    
+                    <div class="grid-item" data-modal="modalComfortScripts">
+                        <div class="grid-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="grid-title">Comfort Scripts</h3>
+                        <p class="grid-description">Read soothing affirmations</p>
+                    </div>
+                    
+                    <div class="grid-item" data-modal="modalBreathing">
+                        <div class="grid-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <h3 class="grid-title">Breathing Companion</h3>
+                        <p class="grid-description">Follow the breathing bubble</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Happening in My Brain Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2 class="section-title">What's Happening in My Brain?</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <div class="card">
+                    <h3>What are hallucinations?</h3>
+                    <p>Hallucinations are sensory experiences that feel real but exist only in your mind. They can involve any of your senses: seeing, hearing, feeling, smelling, or tasting things that aren't present in the external world.</p>
+                    <p>Your brain is creating these experiences due to differences in how it processes information.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>The science behind it</h3>
+                    <p>Hallucinations happen when there are changes in how your brain processes sensory information or regulates internal signals. This can involve neurotransmitters (chemicals in your brain), specific neural pathways, or how different brain regions communicate with each other.</p>
+                    <p>It's like your brain is creating its own input when external input is missing or being processed differently.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>It's not your fault</h3>
+                    <p>Hallucinations are not a character flaw or weakness. They're a result of brain function differences that you didn't choose and aren't responsible for creating.</p>
+                    <p>Just as someone with diabetes isn't at fault for their pancreas function, you aren't at fault for how your brain processes information.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Stories from others</h3>
+                    <p>"Sometimes I hear voices commenting on what I'm doing. Using grounding techniques helps me recognize when this is happening and stay calm." - Jamie</p>
+                    <p>"I occasionally see shadows that aren't really there. I've learned to double-check with my other senses and use my coping plan when this happens." - Sam</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Map Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <h2 class="section-title">Weather Map</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <p>Track how you're feeling and notice patterns over time:</p>
+                
+                <div class="card">
+                    <h3>How is your day today?</h3>
+                    <label for="weatherDate">Date:</label>
+                    <input type="date" id="weatherDate" class="input">
+                    
+                    <label for="weatherCondition">Weather condition:</label>
+                    <select id="weatherCondition" class="input">
+                        <option value="sunny">Sunny (Clear, calm day)</option>
+                        <option value="cloudy">Cloudy (Mild, manageable symptoms)</option>
+                        <option value="rainy">Rainy (Challenging, noticeable symptoms)</option>
+                        <option value="stormy">Stormy (Intense, difficult symptoms)</option>
+                        <option value="foggy">Foggy (Confused, uncertain)</option>
+                    </select>
+                    
+                    <label for="weatherSleep">Sleep quality:</label>
+                    <select id="weatherSleep" class="input">
+                        <option value="good">Good sleep</option>
+                        <option value="ok">Okay sleep</option>
+                        <option value="poor">Poor sleep</option>
+                        <option value="none">No sleep</option>
+                    </select>
+                    
+                    <label for="weatherTriggers">Triggers (if any):</label>
+                    <input type="text" id="weatherTriggers" placeholder="Stress, lack of sleep, etc." class="input">
+                    
+                    <label for="weatherNotes">Notes:</label>
+                    <textarea id="weatherNotes" placeholder="How are you feeling today?" class="input" rows="3"></textarea>
+                    
+                    <button id="saveWeather" class="btn">Save Entry</button>
+                </div>
+                
+                <div id="weatherHistory" class="weather-map">
+                    <!-- Weather entries will be loaded here -->
+                </div>
+                
+                <div id="weatherPatterns" class="card" style="display: none;">
+                    <h3>Patterns Noticed</h3>
+                    <div id="patternContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grounding Plan Builder -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h2 class="section-title">Grounding Plan Builder</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <p>Create your personalized grounding plan:</p>
+                
+                <div class="card">
+                    <h3>My Anchor Plan</h3>
+                    
+                    <label for="planName">Give your plan a name:</label>
+                    <input type="text" id="planName" placeholder="My Comfort Plan" class="input">
+                    
+                    <label for="planSafe">What helps you feel safe?</label>
+                    <textarea id="planSafe" placeholder="Specific locations, objects, or activities" class="input" rows="3"></textarea>
+                    
+                    <label for="planWorse">What makes things worse?</label>
+                    <textarea id="planWorse" placeholder="Things to avoid when feeling overwhelmed" class="input" rows="3"></textarea>
+                    
+                    <label for="planReminder">What would you like to remind yourself?</label>
+                    <textarea id="planReminder" placeholder="Helpful thoughts or mantras" class="input" rows="3"></textarea>
+                    
+                    <label for="planSupport">Emergency support contacts:</label>
+                    <textarea id="planSupport" placeholder="Names and phone numbers of trusted people" class="input" rows="3"></textarea>
+                    
+                    <button id="savePlan" class="btn">Save My Plan</button>
+                </div>
+                
+                <div id="savedPlans">
+                    <!-- Saved plans will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Real or Not Real Game -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h2 class="section-title">"Real or Not Real?" Practice Tool</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <div class="card">
+                    <div class="game-container">
+                        <h3>Can you tell what's real?</h3>
+                        <p>This exercise helps practice distinguishing between what's real and what might be a hallucination.</p>
+                        
+                        <div id="gameContent">
+                            <img src="/api/placeholder/300/200" alt="Game image" class="game-image" id="gameImage">
+                            <p id="gameQuestion">Is this object commonly perceived by most people?</p>
+                            
+                            <div class="game-options">
+                                <button class="btn" id="gameReal">Real</button>
+                                <button class="btn" id="gameNotReal">Not Real</button>
+                            </div>
+                        </div>
+                        
+                        <div id="gameResult" style="display: none;">
+                            <h3 id="gameResultTitle"></h3>
+                            <p id="gameResultText"></p>
+                            <button class="btn" id="gameNext">Try Another</button>
+                        </div>
+                        
+                        <div id="gameEnd" style="display: none;">
+                            <h3>Great Practice!</h3>
+                            <p>Remember, it's okay to not always be sure. The goal is to build trust in your ability to distinguish what's real over time.</p>
+                            <p>Let's build trust in your senses gently.</p>
+                            <button class="btn" id="gameRestart">Start Again</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Tools -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h2 class="section-title">Emergency Tools</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <div class="card">
+                    <h3>Emergency Contacts</h3>
+                    <div id="emergencyContacts">
+                        <!-- Emergency contacts will be loaded here -->
+                    </div>
+                    
+                    <div id="addEmergencyContact">
+                        <h4>Add Emergency Contact</h4>
+                        <input type="text" id="contactName" placeholder="Name" class="input">
+                        <input type="tel" id="contactPhone" placeholder="Phone Number" class="input">
+                        <input type="text" id="contactRelation" placeholder="Relationship (e.g., Friend, Therapist)" class="input">
+                        <button id="saveContact" class="btn">Save Contact</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Quick Access Safety Plan</h3>
+                    <div id="quickPlan">
+                        <!-- Quick safety plan will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Crisis Resources</h3>
+                    <p><strong>National Crisis Text Line:</strong> Text HOME to 741741</p>
+                    <p><strong>National Suicide Prevention Lifeline:</strong> 988 or 1-800-273-8255</p>
+                    <p><strong>Emergency Services:</strong> 911</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional Features -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2 class="section-title">Additional Tools</h2>
+                <i class="fas fa-chevron-down section-toggle"></i>
+            </div>
+            <div class="section-content">
+                <div class="grid">
+                    <div class="grid-item" data-modal="modalMindPalace">
+                        <div class="grid-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="grid-title">Mind Palace</h3>
+                        <p class="grid-description">A gallery of your safe images</p>
+                    </div>
+                    
+                    <div class="grid-item" data-modal="modalVoiceJournal">
+                        <div class="grid-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3 class="grid-title">Voice Journal</h3>
+                        <p class="grid-description">Record and understand what you hear</p>
+                    </div>
+                    
+                    <div class="grid-item" id="nightModeButton">
+                        <div class="grid-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <h3 class="grid-title">Night Mode</h3>
+                        <p class="grid-description">Soothing visuals for bedtime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>AnchorMind - All data is stored locally on your device. We respect your privacy.</p>
+        </div>
+    </footer>
+
+    <!-- Mascot -->
+    <div class="mascot">
+        <i class="fas fa-star mascot-icon"></i>
+        <div class="mascot-message">
+            <p class="mascot-text">This moment will pass. You're doing great.</p>
+            <button class="btn" id="mascotNext">Next Thought</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="modalFiveFourThree">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">5-4-3-2-1 Grounding Technique</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>This technique helps you ground yourself by engaging all your senses:</p>
+                
+                <div class="steps" id="fiveFourThreeSteps">
+                    <div class="step" data-step="1">
+                        <h3 class="step-title">5 Things You Can See</h3>
+                        <div class="step-content">
+                            <p>Look around and name 5 things you can see in your surroundings.</p>
+                            <textarea class="input" placeholder="Type what you see here..." rows="3"></textarea>
+                        </div>
+                        <div class="step-navigation">
+                            <span></span>
+                            <button class="btn" data-next="2">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="2">
+                        <h3 class="step-title">4 Things You Can Touch</h3>
+                        <div class="step-content">
+                            <p>Notice 4 things you can physically feel right now.</p>
+                            <textarea class="input" placeholder="Type what you feel here..." rows="3"></textarea>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="1"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn" data-next="3">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="3">
+                        <h3 class="step-title">3 Things You Can Hear</h3>
+                        <div class="step-content">
+                            <p>Listen carefully and identify 3 sounds around you.</p>
+                            <textarea class="input" placeholder="Type what you hear here..." rows="3"></textarea>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="2"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn" data-next="4">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="4">
+                        <h3 class="step-title">2 Things You Can Smell</h3>
+                        <div class="step-content">
+                            <p>Notice 2 scents in your environment.</p>
+                            <textarea class="input" placeholder="Type what you smell here..." rows="3"></textarea>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="3"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn" data-next="5">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="5">
+                        <h3 class="step-title">1 Thing You Can Taste</h3>
+                        <div class="step-content">
+                            <p>Notice 1 taste in your mouth.</p>
+                            <textarea class="input" placeholder="Type what you taste here..." rows="3"></textarea>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="4"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn" data-next="result">Finish <i class="fas fa-check"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="result">
+                        <h3 class="step-title">Great job!</h3>
+                        <div class="step-content">
+                            <p>You've successfully completed the 5-4-3-2-1 grounding exercise.</p>
+                            <p>How do you feel now? Notice if you feel more present and grounded in the moment.</p>
+                        </div>
+                        <div class="step-navigation">
+                            <button class="btn" data-prev="5"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button class="btn modal-close-btn">Close <i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalSounds">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Calm Sound Loops</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Listen to soothing sounds to help you feel grounded. You can play multiple sounds at once and adjust their volume.</p>
+                
+                <div class="sound-controls">
+                    <div class="sound-control">
+                        <label class="sound-label" for="rainVolume">Rain:</label>
+                        <input type="range" id="rainVolume" min="0" max="100" value="0" class="input">
+                    </div>
+                    
+                    <div class="sound-control">
+                        <label class="sound-label" for="forestVolume">Forest:</label>
+                        <input type="range" id="forestVolume" min="0" max="100" value="0" class="input">
+                    </div>
+                    
+                    <div class="sound-control">
+                        <label class="sound-label" for="wavesVolume">Ocean Waves:</label>
+                        <input type="range" id="wavesVolume" min="0" max="100" value="0" class="input">
+                    </div>
+                    
+                    <div class="sound-control">
+                        <label class="sound-label" for="pianoVolume">Soft Piano:</label>
+                        <input type="range" id="pianoVolume" min="0" max="100" value="0" class="input">
+                    </div>
+                    
+                    <div class="sound-control">
+                        <label class="sound-label" for="whiteNoiseVolume">White Noise:</label>
+                        <input type="range" id="whiteNoiseVolume" min="0" max="100" value="0" class="input">
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="stopAllSounds" class="btn">Stop All Sounds</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalMirror">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Mirror Mode</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Sometimes seeing yourself can help you feel more grounded in reality. This uses your device's camera to show your reflection.</p>
+                
+                <div class="mirror-container">
+                    <video class="mirror-video" id="mirrorVideo" autoplay playsinline></video>
+                </div>
+                
+                <p>Try these suggestions while looking at yourself:</p>
+                <ul>
+                    <li>Say your name out loud</li>
+                    <li>Notice the room behind you</li>
+                    <li>Watch yourself take deep breaths</li>
+                    <li>Remind yourself of where you are right now</li>
+                </ul>
+                
+                <div class="btn-group">
+                    <button id="stopMirror" class="btn">Stop Camera</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalComfortScripts">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Comfort Scripts</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Read or create personal affirmations that help you feel safe and grounded.</p>
+                
+                <div id="comfortScriptsList">
+                    <!-- Scripts will be loaded here -->
+                </div>
+                
+                <div class="card">
+                    <h4>Add New Comfort Script</h4>
+                    <input type="text" id="scriptTitle" placeholder="Title" class="input">
+                    <textarea id="scriptContent" placeholder="Write your comforting words here..." class="input" rows="4"></textarea>
+                    <button id="saveScript" class="btn">Save Script</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalBreathing">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Breathing Companion</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Follow the bubble as it expands and contracts. Breathe in as it grows, and out as it shrinks.</p>
+                
+                <div class="breathing-animation" id="breathingBubble">
+                    Breathe
+                </div>
+                
+                <div class="btn-group">
+                    <button id="breathingSlower" class="btn">Slower</button>
+                    <button id="breathingFaster" class="btn">Faster</button>
+                    <button id="breathingReset" class="btn">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalMindPalace">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Mind Palace</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>A collection of images, quotes, and affirmations that help you feel safe and grounded.</p>
+                
+                <div id="mindPalaceGallery" class="grid">
+                    <!-- Gallery items will be loaded here -->
+                </div>
+                
+                <div class="card">
+                    <h4>Add to Mind Palace</h4>
+                    <select id="mindPalaceType" class="input">
+                        <option value="text">Text or Quote</option>
+                        <option value="image">Image Description</option>
+                    </select>
+                    
+                    <div id="mindPalaceTextInput">
+                        <input type="text" id="mindPalaceTitle" placeholder="Title" class="input">
+                        <textarea id="mindPalaceContent" placeholder="Your quote or affirmation..." class="input" rows="3"></textarea>
+                    </div>
+                    
+                    <div id="mindPalaceImageInput" style="display: none;">
+                        <input type="text" id="mindPalaceImageTitle" placeholder="Title" class="input">
+                        <textarea id="mindPalaceImageDesc" placeholder="Describe a comforting image..." class="input" rows="3"></textarea>
+                    </div>
+                    
+                    <button id="saveMindPalace" class="btn">Save to Mind Palace</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalVoiceJournal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Voice Journal</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Record and understand what you hear. This can help you recognize patterns and gain insights.</p>
+                
+                <div class="card">
+                    <h4>New Entry</h4>
+                    <input type="text" id="voiceEntryTitle" placeholder="Title" class="input">
+                    <textarea id="voiceEntryContent" placeholder="Describe what you're hearing..." class="input" rows="4"></textarea>
+                    
+                    <label for="voiceEntryType">Type of experience:</label>
+                    <select id="voiceEntryType" class="input">
+                        <option value="internal">Internal voice (thoughts)</option>
+                        <option value="external">External voice (hallucination)</option>
+                        <option value="unsure">Not sure</option>
+                    </select>
+                    
+                    <label for="voiceEntryEmotion">How does it make you feel?</label>
+                    <select id="voiceEntryEmotion" class="input">
+                        <option value="neutral">Neutral</option>
+                        <option value="worried">Worried or anxious</option>
+                        <option value="scared">Scared</option>
+                        <option value="angry">Angry</option>
+                        <option value="sad">Sad</option>
+                        <option value="happy">Happy or comforted</option>
+                        <option value="confused">Confused</option>
+                    </select>
+                    
+                    <button id="saveVoiceEntry" class="btn">Save Entry</button>
+                </div>
+                
+                <div id="voiceJournalEntries">
+                    <!-- Voice journal entries will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sections = document.querySelectorAll('.section-header');
+        const modals = document.querySelectorAll('.modal');
+        const modalTriggers = document.querySelectorAll('[data-modal]');
+        const modalCloses = document.querySelectorAll('.modal-close, .modal-close-btn');
+        const mascot = document.querySelector('.mascot');
+        const mascotMessage = document.querySelector('.mascot-message');
+        const mascotNext = document.getElementById('mascotNext');
+        const modeToggle = document.querySelector('.mode-toggle');
+        const nightModeButton = document.getElementById('nightModeButton');
+        
+        // Section toggle
+        sections.forEach(section => {
+            section.addEventListener('click', () => {
+                const content = section.nextElementSibling;
+                const toggle = section.querySelector('.section-toggle');
+                
+                if (content.classList.contains('open')) {
+                    content.style.height = '0';
+                    content.classList.remove('open');
+                    toggle.classList.remove('open');
+                } else {
+                    content.classList.add('open');
+                    content.style.height = content.scrollHeight + 'px';
+                    toggle.classList.add('open');
+                }
+            });
+        });
+        
+        // Modal functionality
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const modalId = trigger.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                
+                modal.classList.add('open');
+                
+                // Special handling for Mirror Mode
+                if (modalId === 'modalMirror') {
+                    startMirrorMode();
+                }
+            });
+        });
+        
+        modalCloses.forEach(close => {
+            close.addEventListener('click', () => {
+                const modal = close.closest('.modal');
+                modal.classList.remove('open');
+                
+                // Stop camera if mirror mode is closed
+                if (modal.id === 'modalMirror') {
+                    stopMirrorMode();
+                }
+            });
+        });
+        
+        // Mascot functionality
+        const mascotMessages = [
+            "This moment will pass. You're doing great.",
+            "Remember to breathe deeply.",
+            "You are safe right here, right now.",
+            "It's okay to feel uncertain sometimes.",
+            "You've got through difficult moments before.",
+            "Would you like to try a grounding exercise?",
+            "Focus on what you can touch and feel.",
+            "You are stronger than you know."
+        ];
+        
+        let currentMascotMessage = 0;
+        
+        mascot.addEventListener('click', () => {
+            if (mascotMessage.classList.contains('show')) {
+                mascotMessage.classList.remove('show');
+            } else {
+                mascotMessage.classList.add('show');
+                mascotMessage.querySelector('.mascot-text').textContent = mascotMessages[currentMascotMessage];
+            }
+        });
+        
+        mascotNext.addEventListener('click', () => {
+            currentMascotMessage = (currentMascotMessage + 1) % mascotMessages.length;
+            mascotMessage.querySelector('.mascot-text').textContent = mascotMessages[currentMascotMessage];
+        });
+        
+        // Night mode toggle
+        function toggleNightMode() {
+            document.body.classList.toggle('night-mode');
+            document.querySelector('header').classList.toggle('night-mode');
+            
+            const modeIcon = modeToggle.querySelector('.mode-icon');
+            if (document.body.classList.contains('night-mode')) {
+                modeIcon.classList.remove('fa-moon');
+                modeIcon.classList.add('fa-sun');
+                localStorage.setItem('nightMode', 'true');
+            } else {
+                modeIcon.classList.remove('fa-sun');
+                modeIcon.classList.add('fa-moon');
+                localStorage.setItem('nightMode', 'false');
+            }
+        }
+        
+        modeToggle.addEventListener('click', toggleNightMode);
+        nightModeButton.addEventListener('click', toggleNightMode);
+        
+        // Check for saved night mode preference
+        if (localStorage.getItem('nightMode') === 'true') {
+            toggleNightMode();
+        }
+        
+        // Hallucination checker steps
+        const hallucinationSteps = document.querySelectorAll('#hallucinationSteps .step');
+        const stepButtons = document.querySelectorAll('#hallucinationSteps button[data-next], #hallucinationSteps button[data-prev]');
+        let hallucinationResponses = {};
+        
+        stepButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.step');
+                const currentStepNum = currentStep.getAttribute('data-step');
+                
+                // Save answer if applicable
+                if (button.hasAttribute('data-answer')) {
+                    hallucinationResponses[currentStepNum] = button.getAttribute('data-answer');
+                }
+                
+                // Navigate to next or previous step
+                if (button.hasAttribute('data-next')) {
+                    const nextStepNum = button.getAttribute('data-next');
+                    const nextStep = document.querySelector(`.step[data-step="${nextStepNum}"]`);
+                    
+                    if (nextStepNum === 'result') {
+                        updateHallucinationResult();
+                    }
+                    
+                    // Scroll to the next step
+                    currentStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else if (button.hasAttribute('data-prev')) {
+                    const prevStepNum = button.getAttribute('data-prev');
+                    const prevStep = document.querySelector(`.step[data-step="${prevStepNum}"]`);
+                    
+                    // Scroll to the previous step
+                    prevStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+        
+        function updateHallucinationResult() {
+            const resultElement = document.getElementById('hallucinationResult');
+            const noCount = Object.values(hallucinationResponses).filter(response => response === 'no').length;
+            
+            if (noCount >= 2) {
+                resultElement.innerHTML = `
+                    <p>Based on your answers, you may be experiencing a hallucination. This is a normal symptom and not your fault.</p>
+                    <p>Let's try some grounding techniques together to help you feel more connected to reality.</p>
+                `;
+            } else if (noCount === 1) {
+                resultElement.innerHTML = `
+                    <p>Based on your answers, you might be experiencing something that's partially a hallucination.</p>
+                    <p>Using grounding techniques can help you feel more certain and connected to reality.</p>
+                `;
+            } else {
+                resultElement.innerHTML = `
+                    <p>Based on your answers, what you're experiencing is likely real.</p>
+                    <p>If you're still feeling uncertain, grounding techniques can help you feel more centered.</p>
+                `;
+            }
+        }
+        
+        // Go to grounding button
+        document.getElementById('goToGrounding').addEventListener('click', () => {
+            const groundingSection = document.getElementById('groundingSection');
+            groundingSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Open the grounding section if it's closed
+            if (!groundingSection.querySelector('.section-content').classList.contains('open')) {
+                groundingSection.querySelector('.section-header').click();
+            }
+        });
+        
+        // 5-4-3-2-1 Grounding steps
+        const fiveFourThreeSteps = document.querySelectorAll('#fiveFourThreeSteps .step');
+        const fiveFourThreeButtons = document.querySelectorAll('#fiveFourThreeSteps button[data-next], #fiveFourThreeSteps button[data-prev]');
+        
+        fiveFourThreeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.step');
+                
+                // Navigate to next or previous step
+                if (button.hasAttribute('data-next')) {
+                    const nextStepNum = button.getAttribute('data-next');
+                    const nextStep = document.querySelector(`#fiveFourThreeSteps .step[data-step="${nextStepNum}"]`);
+                    
+                    // Scroll to the next step
+                    nextStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else if (button.hasAttribute('data-prev')) {
+                    const prevStepNum = button.getAttribute('data-prev');
+                    const prevStep = document.querySelector(`#fiveFourThreeSteps .step[data-step="${prevStepNum}"]`);
+                    
+                    // Scroll to the previous step
+                    prevStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+        
+        // Mirror Mode functionality
+        let videoStream = null;
+        
+        function startMirrorMode() {
+            const video = document.getElementById('mirrorVideo');
+            
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        videoStream = stream;
+                        video.srcObject = stream;
+                    })
+                    .catch(err => {
+                        console.error("Error accessing camera: ", err);
+                        const mirrorContainer = document.querySelector('.mirror-container');
+                        mirrorContainer.innerHTML = `
+                            <div style="text-align: center; padding: 20px;">
+                                <p>Camera access denied or not available.</p>
+                                <p>You can still practice grounding by looking in a physical mirror.</p>
+                            </div>
+                        `;
+                    });
+            }
+        }
+        
+        function stopMirrorMode() {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+        }
+        
+        document.getElementById('stopMirror').addEventListener('click', stopMirrorMode);
+        
+        // Sound controls functionality
+const soundControls = document.querySelectorAll('.sound-control input');
+const stopAllSoundsBtn = document.getElementById('stopAllSounds');
+let audioPlayers = {};
+
+// Setup audio players
+function setupAudioPlayers() {
+    const sounds = {
+        'rain': '/api/placeholder/audio/rain',
+        'forest': '/api/placeholder/audio/forest',
+        'waves': '/api/placeholder/audio/waves',
+        'piano': '/api/placeholder/audio/piano',
+        'whiteNoise': '/api/placeholder/audio/white-noise'
+    };
+    
+    for (const [key, src] of Object.entries(sounds)) {
+        audioPlayers[key] = new Audio(src);
+        audioPlayers[key].loop = true;
+    }
+}
+
+// Initialize audio setup
+setupAudioPlayers();
+
+// Handle volume changes
+soundControls.forEach(control => {
+    control.addEventListener('input', () => {
+        const sound = control.id.replace('Volume', '');
+        const volume = control.value / 100;
+        
+        if (volume > 0 && audioPlayers[sound].paused) {
+            audioPlayers[sound].play().catch(err => console.error("Error playing audio:", err));
+        }
+        
+        audioPlayers[sound].volume = volume;
+    });
+});
+
+// Stop all sounds
+stopAllSoundsBtn.addEventListener('click', () => {
+    soundControls.forEach(control => {
+        control.value = 0;
+    });
+    
+    for (const player of Object.values(audioPlayers)) {
+        player.pause();
+        player.currentTime = 0;
+    }
+});
+
+// Breathing animation functionality
+const breathingBubble = document.getElementById('breathingBubble');
+const breathingSlower = document.getElementById('breathingSlower');
+const breathingFaster = document.getElementById('breathingFaster');
+const breathingReset = document.getElementById('breathingReset');
+
+let breathDuration = 8; // seconds for one full breath cycle
+
+function updateBreathingAnimation() {
+    breathingBubble.style.animationDuration = breathDuration + 's';
+}
+
+breathingSlower.addEventListener('click', () => {
+    breathDuration = Math.min(breathDuration + 1, 12);
+    updateBreathingAnimation();
+});
+
+breathingFaster.addEventListener('click', () => {
+    breathDuration = Math.max(breathDuration - 1, 4);
+    updateBreathingAnimation();
+});
+
+breathingReset.addEventListener('click', () => {
+    breathDuration = 8;
+    updateBreathingAnimation();
+});
+
+// Initialize breathing animation
+updateBreathingAnimation();
+
+// Comfort Scripts functionality
+const comfortScriptsList = document.getElementById('comfortScriptsList');
+const scriptTitleInput = document.getElementById('scriptTitle');
+const scriptContentInput = document.getElementById('scriptContent');
+const saveScriptBtn = document.getElementById('saveScript');
+
+// Load saved comfort scripts
+function loadComfortScripts() {
+    const scripts = JSON.parse(localStorage.getItem('comfortScripts') || '[]');
+    
+    comfortScriptsList.innerHTML = '';
+    
+    if (scripts.length === 0) {
+        comfortScriptsList.innerHTML = `
+            <div class="info-message">
+                <p>You haven't created any comfort scripts yet. Add your first one below!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    scripts.forEach((script, index) => {
+        const scriptElement = document.createElement('div');
+        scriptElement.className = 'card';
+        scriptElement.innerHTML = `
+            <h4>${script.title}</h4>
+            <p>${script.content}</p>
+            <div class="btn-group">
+                <button class="btn btn-small delete-script" data-index="${index}">Delete</button>
+            </div>
+        `;
+        comfortScriptsList.appendChild(scriptElement);
+    });
+    
+    // Add delete event listeners
+    document.querySelectorAll('.delete-script').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteComfortScript(index);
+        });
+    });
+}
+
+// Save a new comfort script
+saveScriptBtn.addEventListener('click', () => {
+    const title = scriptTitleInput.value.trim();
+    const content = scriptContentInput.value.trim();
+    
+    if (!title || !content) {
+        alert('Please fill in both title and content for your comfort script.');
+        return;
+    }
+    
+    const scripts = JSON.parse(localStorage.getItem('comfortScripts') || '[]');
+    scripts.push({ title, content });
+    localStorage.setItem('comfortScripts', JSON.stringify(scripts));
+    
+    // Reset form and reload scripts
+    scriptTitleInput.value = '';
+    scriptContentInput.value = '';
+    loadComfortScripts();
+});
+
+// Delete a comfort script
+function deleteComfortScript(index) {
+    const scripts = JSON.parse(localStorage.getItem('comfortScripts') || '[]');
+    scripts.splice(index, 1);
+    localStorage.setItem('comfortScripts', JSON.stringify(scripts));
+    loadComfortScripts();
+}
+
+// Grounding Plan functionality
+const planNameInput = document.getElementById('planName');
+const planSafeInput = document.getElementById('planSafe');
+const planWorseInput = document.getElementById('planWorse');
+const planReminderInput = document.getElementById('planReminder');
+const planSupportInput = document.getElementById('planSupport');
+const savePlanBtn = document.getElementById('savePlan');
+const savedPlansContainer = document.getElementById('savedPlans');
+const quickPlanContainer = document.getElementById('quickPlan');
+
+// Load saved grounding plans
+function loadGroundingPlans() {
+    const plans = JSON.parse(localStorage.getItem('groundingPlans') || '[]');
+    
+    savedPlansContainer.innerHTML = '';
+    
+    if (plans.length === 0) {
+        savedPlansContainer.innerHTML = `
+            <div class="info-message">
+                <p>You haven't created any grounding plans yet. Create your first one above!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    plans.forEach((plan, index) => {
+        const planElement = document.createElement('div');
+        planElement.className = 'card';
+        planElement.innerHTML = `
+            <h3>${plan.name}</h3>
+            <h4>What helps me feel safe:</h4>
+            <p>${plan.safe}</p>
+            <h4>What makes things worse:</h4>
+            <p>${plan.worse}</p>
+            <h4>My reminder to myself:</h4>
+            <p>${plan.reminder}</p>
+            <h4>Emergency support:</h4>
+            <p>${plan.support}</p>
+            <div class="btn-group">
+                <button class="btn btn-small delete-plan" data-index="${index}">Delete</button>
+                <button class="btn btn-small set-active-plan" data-index="${index}">Set as Active Plan</button>
+            </div>
+        `;
+        savedPlansContainer.appendChild(planElement);
+    });
+    
+    // Add delete and set active event listeners
+    document.querySelectorAll('.delete-plan').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteGroundingPlan(index);
+        });
+    });
+    
+    document.querySelectorAll('.set-active-plan').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            setActivePlan(index);
+        });
+    });
+    
+    // Update quick plan view
+    updateQuickPlan();
+}
+
+// Save a new grounding plan
+savePlanBtn.addEventListener('click', () => {
+    const name = planNameInput.value.trim() || 'My Anchor Plan';
+    const safe = planSafeInput.value.trim();
+    const worse = planWorseInput.value.trim();
+    const reminder = planReminderInput.value.trim();
+    const support = planSupportInput.value.trim();
+    
+    if (!safe && !worse && !reminder && !support) {
+        alert('Please fill in at least one field for your grounding plan.');
+        return;
+    }
+    
+    const plans = JSON.parse(localStorage.getItem('groundingPlans') || '[]');
+    plans.push({ name, safe, worse, reminder, support });
+    localStorage.setItem('groundingPlans', JSON.stringify(plans));
+    
+    // Set as active plan if it's the first one
+    if (plans.length === 1) {
+        localStorage.setItem('activePlanIndex', '0');
+    }
+    
+    // Reset form and reload plans
+    planNameInput.value = '';
+    planSafeInput.value = '';
+    planWorseInput.value = '';
+    planReminderInput.value = '';
+    planSupportInput.value = '';
+    loadGroundingPlans();
+});
+
+// Delete a grounding plan
+function deleteGroundingPlan(index) {
+    const plans = JSON.parse(localStorage.getItem('groundingPlans') || '[]');
+    plans.splice(index, 1);
+    localStorage.setItem('groundingPlans', JSON.stringify(plans));
+    
+    // Update active plan index if needed
+    const activePlanIndex = parseInt(localStorage.getItem('activePlanIndex') || '0');
+    if (activePlanIndex === index) {
+        localStorage.setItem('activePlanIndex', plans.length > 0 ? '0' : '-1');
+    } else if (activePlanIndex > index) {
+        localStorage.setItem('activePlanIndex', (activePlanIndex - 1).toString());
+    }
+    
+    loadGroundingPlans();
+}
+
+// Set active plan
+function setActivePlan(index) {
+    localStorage.setItem('activePlanIndex', index.toString());
+    updateQuickPlan();
+}
+
+// Update quick plan view
+function updateQuickPlan() {
+    const plans = JSON.parse(localStorage.getItem('groundingPlans') || '[]');
+    const activePlanIndex = parseInt(localStorage.getItem('activePlanIndex') || '-1');
+    
+    if (activePlanIndex === -1 || plans.length === 0) {
+        quickPlanContainer.innerHTML = `
+            <div class="info-message">
+                <p>No active grounding plan set. Create a plan and set it as active.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const activePlan = plans[activePlanIndex];
+    quickPlanContainer.innerHTML = `
+        <h4>${activePlan.name}</h4>
+        ${activePlan.safe ? `<p><strong>What helps me feel safe:</strong> ${activePlan.safe}</p>` : ''}
+        ${activePlan.worse ? `<p><strong>What makes things worse:</strong> ${activePlan.worse}</p>` : ''}
+        ${activePlan.reminder ? `<p><strong>My reminder to myself:</strong> ${activePlan.reminder}</p>` : ''}
+        ${activePlan.support ? `<p><strong>Emergency support:</strong> ${activePlan.support}</p>` : ''}
+    `;
+}
+
+// Emergency Contacts functionality
+const contactNameInput = document.getElementById('contactName');
+const contactPhoneInput = document.getElementById('contactPhone');
+const contactRelationInput = document.getElementById('contactRelation');
+const saveContactBtn = document.getElementById('saveContact');
+const emergencyContactsContainer = document.getElementById('emergencyContacts');
+
+// Load saved emergency contacts
+function loadEmergencyContacts() {
+    const contacts = JSON.parse(localStorage.getItem('emergencyContacts') || '[]');
+    
+    emergencyContactsContainer.innerHTML = '';
+    
+    if (contacts.length === 0) {
+        emergencyContactsContainer.innerHTML = `
+            <div class="info-message">
+                <p>You haven't added any emergency contacts yet. Add your first one below!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    contacts.forEach((contact, index) => {
+        const contactElement = document.createElement('div');
+        contactElement.className = 'contact-card';
+        contactElement.innerHTML = `
+            <h4>${contact.name}</h4>
+            <p><strong>${contact.relation}</strong></p>
+            <p><a href="tel:${contact.phone}" class="phone-link">${contact.phone}</a></p>
+            <button class="btn btn-small delete-contact" data-index="${index}">Remove</button>
+        `;
+        emergencyContactsContainer.appendChild(contactElement);
+    });
+    
+    // Add delete event listeners
+    document.querySelectorAll('.delete-contact').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteEmergencyContact(index);
+        });
+    });
+}
+
+// Save a new emergency contact
+saveContactBtn.addEventListener('click', () => {
+    const name = contactNameInput.value.trim();
+    const phone = contactPhoneInput.value.trim();
+    const relation = contactRelationInput.value.trim();
+    
+    if (!name || !phone) {
+        alert('Please provide at least a name and phone number.');
+        return;
+    }
+    
+    const contacts = JSON.parse(localStorage.getItem('emergencyContacts') || '[]');
+    contacts.push({ name, phone, relation });
+    localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+    
+    // Reset form and reload contacts
+    contactNameInput.value = '';
+    contactPhoneInput.value = '';
+    contactRelationInput.value = '';
+    loadEmergencyContacts();
+});
+
+// Delete an emergency contact
+function deleteEmergencyContact(index) {
+    const contacts = JSON.parse(localStorage.getItem('emergencyContacts') || '[]');
+    contacts.splice(index, 1);
+    localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+    loadEmergencyContacts();
+}
+
+// Mind Palace functionality
+const mindPalaceType = document.getElementById('mindPalaceType');
+const mindPalaceTextInput = document.getElementById('mindPalaceTextInput');
+const mindPalaceImageInput = document.getElementById('mindPalaceImageInput');
+const mindPalaceTitle = document.getElementById('mindPalaceTitle');
+const mindPalaceContent = document.getElementById('mindPalaceContent');
+const mindPalaceImageTitle = document.getElementById('mindPalaceImageTitle');
+const mindPalaceImageDesc = document.getElementById('mindPalaceImageDesc');
+const saveMindPalace = document.getElementById('saveMindPalace');
+const mindPalaceGallery = document.getElementById('mindPalaceGallery');
+
+// Toggle Mind Palace input types
+mindPalaceType.addEventListener('change', () => {
+    if (mindPalaceType.value === 'text') {
+        mindPalaceTextInput.style.display = 'block';
+        mindPalaceImageInput.style.display = 'none';
+    } else {
+        mindPalaceTextInput.style.display = 'none';
+        mindPalaceImageInput.style.display = 'block';
+    }
+});
+
+// Load Mind Palace items
+function loadMindPalace() {
+    const items = JSON.parse(localStorage.getItem('mindPalace') || '[]');
+    
+    mindPalaceGallery.innerHTML = '';
+    
+    if (items.length === 0) {
+        mindPalaceGallery.innerHTML = `
+            <div class="info-message">
+                <p>Your Mind Palace is empty. Add your first comforting thought or image below!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    items.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'grid-item mind-palace-item';
+        
+        if (item.type === 'text') {
+            itemElement.innerHTML = `
+                <div class="mind-palace-content">
+                    <h3>${item.title}</h3>
+                    <p>${item.content}</p>
+                </div>
+                <button class="btn btn-small delete-mind-palace" data-index="${index}">Remove</button>
+            `;
+        } else {
+            // For image descriptions, we'll create a visual representation
+            itemElement.innerHTML = `
+                <div class="mind-palace-content">
+                    <div class="image-placeholder">${item.title}</div>
+                    <p>${item.content}</p>
+                </div>
+                <button class="btn btn-small delete-mind-palace" data-index="${index}">Remove</button>
+            `;
+        }
+        
+        mindPalaceGallery.appendChild(itemElement);
+    });
+    
+    // Add delete event listeners
+    document.querySelectorAll('.delete-mind-palace').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteMindPalaceItem(index);
+        });
+    });
+}
+
+// Save a new Mind Palace item
+saveMindPalace.addEventListener('click', () => {
+    const type = mindPalaceType.value;
+    let title, content;
+    
+    if (type === 'text') {
+        title = mindPalaceTitle.value.trim();
+        content = mindPalaceContent.value.trim();
+    } else {
+        title = mindPalaceImageTitle.value.trim();
+        content = mindPalaceImageDesc.value.trim();
+    }
+    
+    if (!title || !content) {
+        alert('Please fill in both title and content fields.');
+        return;
+    }
+    
+    const items = JSON.parse(localStorage.getItem('mindPalace') || '[]');
+    items.push({ type, title, content });
+    localStorage.setItem('mindPalace', JSON.stringify(items));
+    
+    // Reset form and reload items
+    if (type === 'text') {
+        mindPalaceTitle.value = '';
+        mindPalaceContent.value = '';
+    } else {
+        mindPalaceImageTitle.value = '';
+        mindPalaceImageDesc.value = '';
+    }
+    
+    loadMindPalace();
+});
+
+// Delete a Mind Palace item
+function deleteMindPalaceItem(index) {
+    const items = JSON.parse(localStorage.getItem('mindPalace') || '[]');
+    items.splice(index, 1);
+    localStorage.setItem('mindPalace', JSON.stringify(items));
+    loadMindPalace();
+}
+
+// Voice Journal functionality
+const voiceEntryTitle = document.getElementById('voiceEntryTitle');
+const voiceEntryContent = document.getElementById('voiceEntryContent');
+const voiceEntryType = document.getElementById('voiceEntryType');
+const voiceEntryEmotion = document.getElementById('voiceEntryEmotion');
+const saveVoiceEntry = document.getElementById('saveVoiceEntry');
+const voiceJournalEntries = document.getElementById('voiceJournalEntries');
+
+// Load Voice Journal entries
+function loadVoiceJournal() {
+    const entries = JSON.parse(localStorage.getItem('voiceJournal') || '[]');
+    
+    voiceJournalEntries.innerHTML = '';
+    
+    if (entries.length === 0) {
+        voiceJournalEntries.innerHTML = `
+            <div class="info-message">
+                <p>Your Voice Journal is empty. Record your first entry above!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    entries.forEach((entry, index) => {
+        const entryElement = document.createElement('div');
+        entryElement.className = 'card voice-entry';
+        
+        let emotionClass = '';
+        switch (entry.emotion) {
+            case 'worried': emotionClass = 'emotion-worried'; break;
+            case 'scared': emotionClass = 'emotion-scared'; break;
+            case 'angry': emotionClass = 'emotion-angry'; break;
+            case 'sad': emotionClass = 'emotion-sad'; break;
+            case 'happy': emotionClass = 'emotion-happy'; break;
+            case 'confused': emotionClass = 'emotion-confused'; break;
+            default: emotionClass = 'emotion-neutral';
+        }
+        
+        let typeLabel = '';
+        switch (entry.type) {
+            case 'internal': typeLabel = 'Internal voice (thoughts)'; break;
+            case 'external': typeLabel = 'External voice (hallucination)'; break;
+            default: typeLabel = 'Not sure';
+        }
+        
+        const date = new Date(entry.timestamp);
+        const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+        
+        entryElement.innerHTML = `
+            <div class="entry-header ${emotionClass}">
+                <h4>${entry.title}</h4>
+                <span class="entry-date">${formattedDate}</span>
+            </div>
+            <p>${entry.content}</p>
+            <p><strong>Type:</strong> ${typeLabel}</p>
+            <p><strong>Emotion:</strong> ${entry.emotion.charAt(0).toUpperCase() + entry.emotion.slice(1)}</p>
+            <button class="btn btn-small delete-voice-entry" data-index="${index}">Delete</button>
+        `;
+        
+        voiceJournalEntries.appendChild(entryElement);
+    });
+    
+    // Add delete event listeners
+    document.querySelectorAll('.delete-voice-entry').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteVoiceJournalEntry(index);
+        });
+    });
+}
+
+// Save a new Voice Journal entry
+saveVoiceEntry.addEventListener('click', () => {
+    const title = voiceEntryTitle.value.trim() || 'Untitled Entry';
+    const content = voiceEntryContent.value.trim();
+    const type = voiceEntryType.value;
+    const emotion = voiceEntryEmotion.value;
+    const timestamp = Date.now();
+    
+    if (!content) {
+        alert('Please describe what you\'re hearing.');
+        return;
+    }
+    
+    const entries = JSON.parse(localStorage.getItem('voiceJournal') || '[]');
+    entries.push({ title, content, type, emotion, timestamp });
+    localStorage.setItem('voiceJournal', JSON.stringify(entries));
+    
+    // Reset form and reload entries
+    voiceEntryTitle.value = '';
+    voiceEntryContent.value = '';
+    voiceEntryType.value = 'internal';
+    voiceEntryEmotion.value = 'neutral';
+    loadVoiceJournal();
+});
+
+// Delete a Voice Journal entry
+function deleteVoiceJournalEntry(index) {
+    const entries = JSON.parse(localStorage.getItem('voiceJournal') || '[]');
+    entries.splice(index, 1);
+    localStorage.setItem('voiceJournal', JSON.stringify(entries));
+    loadVoiceJournal();
+}
+
+// "Real or Not Real?" Game functionality
+const gameImage = document.getElementById('gameImage');
+const gameQuestion = document.getElementById('gameQuestion');
+const gameReal = document.getElementById('gameReal');
+const gameNotReal = document.getElementById('gameNotReal');
+const gameContent = document.getElementById('gameContent');
+const gameResult = document.getElementById('gameResult');
+const gameResultTitle = document.getElementById('gameResultTitle');
+const gameResultText = document.getElementById('gameResultText');
+const gameNext = document.getElementById('gameNext');
+const gameEnd = document.getElementById('gameEnd');
+const gameRestart = document.getElementById('gameRestart');
+
+// Game data
+const gameItems = [
+    {
+        question: "A person speaking to you through the walls",
+        isReal: false,
+        realExplanation: "",
+        notRealExplanation: "Sound doesn't usually travel through walls in a way that would sound like clear speech. This is likely a hallucination."
+    },
+    {
+        question: "The feeling of your hands touching a table",
+        isReal: true,
+        realExplanation: "Physical touch sensations like feeling a surface are usually real sensory experiences.",
+        notRealExplanation: ""
+    },
+    {
+        question: "A voice calling your name when you're alone at home",
+        isReal: false,
+        realExplanation: "",
+        notRealExplanation: "If you're alone, there's likely no one there to call your name. This might be an auditory hallucination."
+    },
+    {
+        question: "The sound of your refrigerator humming",
+        isReal: true,
+        realExplanation: "Appliances like refrigerators do make humming sounds that others can hear too.",
+        notRealExplanation: ""
+    },
+    {
+        question: "Seeing shadows that move independently",
+        isReal: false,
+        realExplanation: "",
+        notRealExplanation: "Shadows don't move on their own unless the light source or object is moving. This could be a visual hallucination."
+    }
+];
+
+let currentGameItemIndex = 0;
+
+// Load game item
+function loadGameItem() {
+    if (currentGameItemIndex >= gameItems.length) {
+        // End of game
+        gameContent.style.display = 'none';
+        gameResult.style.display = 'none';
+        gameEnd.style.display = 'block';
+        return;
+    }
+    
+    const item = gameItems[currentGameItemIndex];
+    
+    gameQuestion.textContent = item.question;
+    gameContent.style.display = 'block';
+    gameResult.style.display = 'none';
+    gameEnd.style.display = 'none';
+}
+
+// Handle game answer
+function handleGameAnswer(answer) {
+    const item = gameItems[currentGameItemIndex];
+    const isCorrect = (answer === 'real' && item.isReal) || (answer === 'notReal' && !item.isReal);
+    
+    gameContent.style.display = 'none';
+    gameResult.style.display = 'block';
+    
+    if (isCorrect) {
+        gameResultTitle.textContent = "That's correct!";
+        gameResultText.textContent = item.isReal ? item.realExplanation : item.notRealExplanation;
+    } else {
+        gameResultTitle.textContent = "Not quite right";
+        gameResultText.textContent = item.isReal ? 
+            "This is something that most people would perceive. " + item.realExplanation :
+            "This is not something most people would perceive. " + item.notRealExplanation;
+    }
+    
+    currentGameItemIndex++;
+}
+
+// Game event listeners
+gameReal.addEventListener('click', () => handleGameAnswer('real'));
+gameNotReal.addEventListener('click', () => handleGameAnswer('notReal'));
+gameNext.addEventListener('click', loadGameItem);
+gameRestart.addEventListener('click', () => {
+    currentGameItemIndex = 0;
+    loadGameItem();
+});
+
+// Weather Map functionality (if we had time to implement)
+// This would track mood and hallucination severity with visual metaphors
+
+// Initialize all components on page load
+window.addEventListener('DOMContentLoaded', () => {
+    // Load data from localStorage
+    loadComfortScripts();
+    loadGroundingPlans();
+    loadEmergencyContacts();
+    loadMindPalace();
+    loadVoiceJournal();
+    
+    // Initialize game
+    loadGameItem();
+    
+    // Open the first section by default
+    if (document.querySelector('.section-header')) {
+        document.querySelector('.section-header').click();
+    }
+});
+
+// Close modals when clicking outside
+window.addEventListener('click', (event) => {
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.classList.remove('open');
+            
+            // Stop camera if mirror mode is closed
+            if (modal.id === 'modalMirror') {
+                stopMirrorMode();
+            }
+        }
+    });
+});
+    </script>
+</body>
+</html>
+

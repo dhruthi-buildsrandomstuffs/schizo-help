@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> =Schio-help - Medication Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --primary: #7ba6d1;
+    --primary-light: #d6e6f5;
+    --primary-dark: #5a85b0;
+    --secondary: #f8fafd;
+    --text: #2d3748;
+    --text-light: #4a5568;
+    --success: #9ae6b4;
+    --warning: #fbd38d;
+    --danger: #feb2b2;
+    --white: #ffffff;
+    --shadow: rgba(122, 166, 209, 0.15);
+    --border: rgba(122, 166, 209, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px var(--shadow);
+    border: 1px solid var(--border);
+}
+
+h1, h2, h3, h4 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 28px;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: 22px;
+    letter-spacing: -0.3px;
+}
+
+.quote {
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.mascot {
+    font-size: 24px;
+    margin: 8px 0;
+    transition: transform 0.3s ease;
+    display: none;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn-large {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-panic {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary);
+    color: var(--primary-dark);
+    font-weight: 500;
+    font-size: 16px;
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+}
+
+.btn-panic:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background-color: var(--secondary);
+    color: var(--text);
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.medication-item {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: 6px;
+    background-color: var(--primary-light);
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.medication-item:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.medication-info {
+    flex: 1;
+}
+
+.medication-time {
+    font-weight: 600;
+    margin-right: 16px;
+    color: var(--primary-dark);
+}
+
+.medication-taken {
+    display: flex;
+    align-items: center;
+}
+
+/* Custom checkbox */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    color: var(--text-light);
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: var(--white);
+    border-radius: 4px;
+    border: 1px solid var(--primary);
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: var(--primary-light);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.mood-tracker {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    background-color: var(--secondary);
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.mood-icon {
+    font-size: 22px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--white);
+    border: 1px solid transparent;
+}
+
+.mood-icon:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-light);
+}
+
+.mood-icon.selected {
+    background-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-dark);
+}
+
+.mood-history {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.mood-day {
+    text-align: center;
+    flex: 1;
+    font-size: 13px;
+}
+
+.mood-dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 16px;
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 8px 2px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.calendar-day.completed {
+    background-color: var(--success);
+}
+
+.calendar-day.partial {
+    background-color: var(--warning);
+}
+
+.calendar-day.missed {
+    background-color: var(--danger);
+}
+
+.grounding-technique {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--primary-light);
+    margin-top: 16px;
+    display: none;
+    border: 1px solid var(--primary);
+}
+
+.grounding-technique h3 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+.grounding-technique p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.tag {
+    background-color: var(--secondary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    border: 1px solid var(--border);
+}
+
+.tag:hover, .tag.selected {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary-dark);
+}
+
+.countdown {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: var(--secondary);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--primary-dark);
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #1a202c;
+    color: #e2e8f0;
+}
+
+body.dark-mode .card {
+    background-color: #2d3748;
+    border-color: #4a5568;
+}
+
+body.dark-mode header {
+    background-color: #2d3748;
+    border-color: #4a5568;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+    color: var(--primary-light);
+}
+
+body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border-color: #4a5568;
+}
+
+body.dark-mode .medication-item {
+    background-color: #3a4556;
+    border-color: #4a5568;
+}
+
+body.dark-mode .medication-item:hover {
+    background-color: #4a5568;
+}
+
+body.dark-mode .mood-tracker, 
+body.dark-mode .mood-history,
+body.dark-mode .calendar,
+body.dark-mode .countdown {
+    background-color: #2d3748;
+    border-color: #4a5568;
+}
+
+body.dark-mode .mood-icon {
+    background-color: #3a4556;
+}
+
+body.dark-mode .tag {
+    background-color: #3a4556;
+    border-color: #4a5568;
+}
+
+.mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.mode-toggle:hover {
+    transform: scale(1.05);
+    background-color: var(--primary-dark);
+}
+
+.breathing-animation {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    margin: 20px auto;
+    animation: breathing 5s infinite ease-in-out;
+    display: none;
+    box-shadow: 0 0 20px var(--primary-light);
+}
+
+@keyframes breathing {
+    0% { transform: scale(0.9); background-color: var(--primary-light); }
+    50% { transform: scale(1.1); background-color: var(--primary); }
+    100% { transform: scale(0.9); background-color: var(--primary-light); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .mood-tracker {
+        flex-wrap: wrap;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Schizo-help</h1>
+            <div class="mascot">Medication Tracker</div>
+            <p class="quote" id="daily-quote">Today is a new day, and you're doing great just by being here.</p>
+        </header>
+
+        <div class="card">
+            <div class="section-title">
+                <span>💊</span>
+                <h2>Today's Medications</h2>
+            </div>
+            
+            <div id="medication-list">
+                <!-- Medication items will be added here -->
+            </div>
+
+            <div class="countdown" id="next-med-countdown">
+                <!-- Countdown will appear here -->
+            </div>
+
+            <div class="form-group">
+                <label for="med-name">Add New Medication</label>
+                <input type="text" id="med-name" placeholder="Medication name">
+            </div>
+            <div class="form-group">
+                <label for="med-dosage">Dosage</label>
+                <input type="text" id="med-dosage" placeholder="e.g. 10mg">
+            </div>
+            <div class="form-group">
+                <label for="med-time">Time to take</label>
+                <input type="time" id="med-time">
+            </div>
+            <button class="btn" id="add-medication">Add Medication</button>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <span>😊</span>
+                <h2>How are you feeling today?</h2>
+            </div>
+            
+            <div class="mood-tracker" id="mood-tracker">
+                <div class="mood-icon" data-mood="great">😃</div>
+                <div class="mood-icon" data-mood="good">🙂</div>
+                <div class="mood-icon" data-mood="okay">😐</div>
+                <div class="mood-icon" data-mood="low">😔</div>
+                <div class="mood-icon" data-mood="bad">😞</div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Notes for today (How do you feel?)</label>
+                <textarea id="notes" rows="3" placeholder="Write how you're doing today..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Select how you feel (choose all that apply)</label>
+                <div class="tags-container" id="feeling-tags">
+                    <span class="tag" data-tag="calm">Calm</span>
+                    <span class="tag" data-tag="anxious">Anxious</span>
+                    <span class="tag" data-tag="tired">Tired</span>
+                    <span class="tag" data-tag="energetic">Energetic</span>
+                    <span class="tag" data-tag="paranoid">Paranoid</span>
+                    <span class="tag" data-tag="focused">Focused</span>
+                    <span class="tag" data-tag="confused">Confused</span>
+                    <span class="tag" data-tag="ok">OK</span>
+                </div>
+            </div>
+
+            <button class="btn" id="save-mood">Save Today's Entry</button>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <span>📆</span>
+                <h2>Your Week</h2>
+            </div>
+            
+            <div class="calendar" id="med-calendar">
+                <!-- Calendar days will be added here -->
+            </div>
+
+            <h3>Recent Moods</h3>
+            <div class="mood-history" id="mood-history">
+                <!-- Mood history will be added here -->
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <span>🌈</span>
+                <h2>Need a Moment?</h2>
+            </div>
+            <button class="btn btn-panic" id="panic-button">Take a Breath with Me</button>
+            <div class="breathing-animation" id="breathing-animation"></div>
+            <div class="grounding-technique" id="grounding-technique">
+                <h3>Quick Grounding Exercise</h3>
+                <p>Take a deep breath and notice:</p>
+                <p>👁️ 5 things you can see</p>
+                <p>👂 4 things you can hear</p>
+                <p>👃 3 things you can smell</p>
+                <p>👄 2 things you can taste</p>
+                <p>👆 1 thing you can touch</p>
+                <p>You're doing great. You are safe right now.</p>
+            </div>
+        </div>
+    </div>
+
+    <button class="mode-toggle" id="mode-toggle">🌙</button>
+
+    <script>
+        // Data structure to store all app data
+        let appData = {
+            medications: [],
+            moodEntries: [],
+            calendarData: [],
+            selectedTags: [],
+            currentMood: null,
+            reminderTimers: []
+        };
+
+        // DOM Elements
+        const medicationList = document.getElementById('medication-list');
+        const addMedicationBtn = document.getElementById('add-medication');
+        const moodTracker = document.getElementById('mood-tracker');
+        const saveMoodBtn = document.getElementById('save-mood');
+        const feelingTags = document.getElementById('feeling-tags');
+        const panicButton = document.getElementById('panic-button');
+        const groundingTechnique = document.getElementById('grounding-technique');
+        const breathingAnimation = document.getElementById('breathing-animation');
+        const medCalendar = document.getElementById('med-calendar');
+        const moodHistory = document.getElementById('mood-history');
+        const modeToggle = document.getElementById('mode-toggle');
+        const countdownElement = document.getElementById('next-med-countdown');
+        const dailyQuote = document.getElementById('daily-quote');
+        const mascot = document.querySelector('.mascot');
+
+        // Quotes for daily inspiration
+        const quotes = [
+            "Today is a new day, and you're doing great just by being here.",
+            "Small steps forward are still progress. Be proud of yourself.",
+            "Remember to be gentle with yourself today.",
+            "Your efforts matter, even on difficult days.",
+            "You are stronger than you think. Take it one moment at a time.",
+            "It's okay to take breaks when you need them.",
+            "You're not alone on this journey.",
+            "Just showing up today is an achievement worth celebrating.",
+            "This moment will pass. Breathe slowly.",
+            "Focus on today. You're doing the best you can."
+        ];
+
+        // Initialize the app when document loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDataFromStorage();
+            initializePage();
+            updateMedicationList();
+            updateMoodHistory();
+            updateCalendar();
+            startCountdown();
+            setRandomQuote();
+        });
+
+        // Set random quote
+        function setRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            dailyQuote.textContent = quotes[randomIndex];
+        }
+
+        // Initialize page with existing data
+        function initializePage() {
+            // Setup event listeners
+            addMedicationBtn.addEventListener('click', addMedication);
+            
+            moodTracker.querySelectorAll('.mood-icon').forEach(icon => {
+                icon.addEventListener('click', () => selectMood(icon));
+            });
+            
+            saveMoodBtn.addEventListener('click', saveMoodEntry);
+            
+            feelingTags.querySelectorAll('.tag').forEach(tag => {
+                tag.addEventListener('click', () => toggleTag(tag));
+            });
+            
+            panicButton.addEventListener('click', activateGroundingTechnique);
+            
+            modeToggle.addEventListener('click', toggleDarkMode);
+        }
+
+        // Add new medication
+        function addMedication() {
+            const name = document.getElementById('med-name').value.trim();
+            const dosage = document.getElementById('med-dosage').value.trim();
+            const time = document.getElementById('med-time').value;
+            
+            if (name && time) {
+                const medication = {
+                    id: Date.now(),
+                    name,
+                    dosage,
+                    time,
+                    taken: false
+                };
+                
+                appData.medications.push(medication);
+                saveDataToStorage();
+                updateMedicationList();
+                setMedicationReminder(medication);
+                
+                // Clear form
+                document.getElementById('med-name').value = '';
+                document.getElementById('med-dosage').value = '';
+                document.getElementById('med-time').value = '';
+                
+                // Make mascot happy
+                animateMascot();
+            } else {
+                alert('Please enter at least the medication name and time');
+            }
+        }
+
+        // Set medication reminder
+        function setMedicationReminder(medication) {
+            const now = new Date();
+            const [hours, minutes] = medication.time.split(':');
+            const medicationTime = new Date();
+            medicationTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0);
+            
+            // If the time has already passed today, set it for tomorrow
+            if (medicationTime < now) {
+                medicationTime.setDate(medicationTime.getDate() + 1);
+            }
+            
+            const timeDiff = medicationTime - now;
+            
+            if (timeDiff > 0) {
+                const timer = setTimeout(() => {
+                    const confirmation = confirm(`Time to take your ${medication.name}${medication.dosage ? ' (' + medication.dosage + ')' : ''}. Click OK when you've taken it.`);
+                    
+                    if (confirmation) {
+                        markMedicationAsTaken(medication.id);
+                    }
+                }, timeDiff);
+                
+                appData.reminderTimers.push({
+                    id: medication.id,
+                    timer
+                });
+            }
+            
+            startCountdown();
+        }
+
+        // Update medication list in UI
+        function updateMedicationList() {
+            medicationList.innerHTML = '';
+            
+            // Sort medications by time
+            const sortedMeds = [...appData.medications].sort((a, b) => {
+                return a.time.localeCompare(b.time);
+            });
+            
+            if (sortedMeds.length === 0) {
+                medicationList.innerHTML = '<p>No medications added yet. Add your first medication above.</p>';
+                return;
+            }
+            
+            sortedMeds.forEach(med => {
+                const medItem = document.createElement('div');
+                medItem.className = 'medication-item';
+                
+                medItem.innerHTML = `
+                    <span class="medication-time">${formatTime(med.time)}</span>
+                    <div class="medication-info">
+                        <div>${med.name}${med.dosage ? ' (' + med.dosage + ')' : ''}</div>
+                    </div>
+                    <div class="medication-taken">
+                        <label class="checkbox-container">Taken
+                            <input type="checkbox" ${med.taken ? 'checked' : ''} data-id="${med.id}">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                `;
+                
+                // Add event listener to checkbox
+                const checkbox = medItem.querySelector('input[type="checkbox"]');
+                checkbox.addEventListener('change', function() {
+                    markMedicationAsTaken(parseInt(this.dataset.id), this.checked);
+                });
+                
+                medicationList.appendChild(medItem);
+            });
+        }
+
+        // Format time to be more readable
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour = parseInt(hours, 10);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const formattedHour = hour % 12 || 12;
+            return `${formattedHour}:${minutes} ${ampm}`;
+        }
+
+        // Mark medication as taken
+        function markMedicationAsTaken(id, status = true) {
+            const medIndex = appData.medications.findIndex(med => med.id === id);
+            
+            if (medIndex !== -1) {
+                appData.medications[medIndex].taken = status;
+                saveDataToStorage();
+                updateMedicationList();
+                updateCalendar();
+                
+                if (status) {
+                    animateMascot();
+                }
+            }
+        }
+
+        // Select mood from mood tracker
+        function selectMood(selectedIcon) {
+            // Remove selected class from all icons
+            moodTracker.querySelectorAll('.mood-icon').forEach(icon => {
+                icon.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked icon
+            selectedIcon.classList.add('selected');
+            
+            // Store selected mood
+            appData.currentMood = selectedIcon.dataset.mood;
+        }
+
+        // Toggle feeling tag selection
+        function toggleTag(tag) {
+            tag.classList.toggle('selected');
+            
+            const tagValue = tag.dataset.tag;
+            
+            if (tag.classList.contains('selected')) {
+                if (!appData.selectedTags.includes(tagValue)) {
+                    appData.selectedTags.push(tagValue);
+                }
+            } else {
+                appData.selectedTags = appData.selectedTags.filter(t => t !== tagValue);
+            }
+        }
+
+        // Save mood entry
+        function saveMoodEntry() {
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (appData.currentMood || notes || appData.selectedTags.length > 0) {
+                const today = new Date().toISOString().split('T')[0];
+                
+                const moodEntry = {
+                    date: today,
+                    mood: appData.currentMood,
+                    notes,
+                    tags: [...appData.selectedTags]
+                };
+                
+                // Check if we already have an entry for today
+                const existingEntryIndex = appData.moodEntries.findIndex(entry => entry.date === today);
+                
+                if (existingEntryIndex !== -1) {
+                    appData.moodEntries[existingEntryIndex] = moodEntry;
+                } else {
+                    appData.moodEntries.push(moodEntry);
+                }
+                
+                saveDataToStorage();
+                updateMoodHistory();
+                
+                // Clear form
+                document.getElementById('notes').value = '';
+                moodTracker.querySelectorAll('.mood-icon').forEach(icon => {
+                    icon.classList.remove('selected');
+                });
+                feelingTags.querySelectorAll('.tag').forEach(tag => {
+                    tag.classList.remove('selected');
+                });
+                appData.selectedTags = [];
+                appData.currentMood = null;
+                
+                // Show confirmation
+                alert('Your mood entry has been saved.');
+                animateMascot();
+            } else {
+                alert('Please select a mood, add notes, or select feeling tags before saving.');
+            }
+        }
+
+        // Update mood history display
+        function updateMoodHistory() {
+            moodHistory.innerHTML = '';
+            
+            // Get last 5 entries
+            const recentEntries = [...appData.moodEntries]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+            
+            if (recentEntries.length === 0) {
+                moodHistory.innerHTML = '<p>No mood entries yet. Share how you feel above.</p>';
+                return;
+            }
+            
+            recentEntries.forEach(entry => {
+                const moodDay = document.createElement('div');
+                moodDay.className = 'mood-day';
+                
+                // Get emoji based on mood
+                let moodEmoji = '😐';
+                let moodColor = '#a3c9e9';
+                
+                switch (entry.mood) {
+                    case 'great':
+                        moodEmoji = '😃';
+                        moodColor = '#9ae6b4';
+                        break;
+                    case 'good':
+                        moodEmoji = '🙂';
+                        moodColor = '#c6f6d5';
+                        break;
+                    case 'okay':
+                        moodEmoji = '😐';
+                        moodColor = '#fbd38d';
+                        break;
+                    case 'low':
+                        moodEmoji = '😔';
+                        moodColor = '#fed7d7';
+                        break;
+                    case 'bad':
+                        moodEmoji = '😞';
+                        moodColor = '#feb2b2';
+                        break;
+                }
+                
+                moodDay.innerHTML = `
+                    <div class="mood-dot" style="background-color: ${moodColor};"></div>
+                    <div>${formatDate(entry.date)}</div>
+                    <div>${moodEmoji}</div>
+                `;
+                
+                moodHistory.appendChild(moodDay);
+            });
+        }
+
+        // Format date to be more readable
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        // Update calendar display
+        function updateCalendar() {
+            medCalendar.innerHTML = '';
+            
+            // Get dates for past week and next week
+            const today = new Date();
+            const dates = [];
+            
+            for (let i = -6; i <= 7; i++) {
+                const date = new Date();
+                date.setDate(today.getDate() + i);
+                dates.push(date);
+            }
+            
+            // Add labels for days of week
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            daysOfWeek.forEach(day => {
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'calendar-day';
+                dayLabel.textContent = day;
+                medCalendar.appendChild(dayLabel);
+            });
+            
+            // Add calendar days
+            dates.forEach(date => {
+                const dateString = date.toISOString().split('T')[0];
+                const calendarDay = document.createElement('div');
+                calendarDay.className = 'calendar-day';
+                
+                // Check if we have med data for this date
+                let status = '';
+                
+                // For today and past days, check if meds were taken
+                if (date <= today) {
+                    const allMedsTaken = appData.medications.every(med => med.taken);
+                    const someMedsTaken = appData.medications.some(med => med.taken);
+                
+                    if (allMedsTaken && appData.medications.length > 0) {
+                        status = 'completed';
+                    } else if (someMedsTaken) {
+                        status = 'partial';
+                    } else if (appData.medications.length > 0) {
+                        status = 'missed';
+                    }
+                }
+                
+                // Set appearance based on status
+                if (status) {
+                    calendarDay.classList.add(status);
+                }
+                
+                // Highlight today
+                if (date.toDateString() === today.toDateString()) {
+                    calendarDay.style.fontWeight = 'bold';
+                    calendarDay.style.border = '2px solid var(--primary-dark)';
+                }
+                
+                calendarDay.textContent = date.getDate();
+                medCalendar.appendChild(calendarDay);
+            });
+        }
+
+        // Activate grounding technique
+        function activateGroundingTechnique() {
+            if (groundingTechnique.style.display === 'block') {
+                groundingTechnique.style.display = 'none';
+                breathingAnimation.style.display = 'none';
+                panicButton.textContent = 'Take a Breath with Me';
+            } else {
+                groundingTechnique.style.display = 'block';
+                breathingAnimation.style.display = 'block';
+                panicButton.textContent = 'Close Grounding Exercise';
+                
+                // Play soft sound if available
+                try {
+                    const audio = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA/+M4wAAAAAAAAAAAAEluZm8AAAAPAAAAEAAABVgANTU1NTU1Q0NDQ0NDUFBQUFBQXl5eXl5ea2tra2tra3h4eHh4eIaGhoaGhpOTk5OTk6Ojo6Ojo6CwsLCwsLi4uLi4uMXFxcXFxdLS0tLS0uDg4ODg4O/v7+/v7/////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYAAAAAAAAAVgpz2KQAAAAAA');
+                    audio.volume = 0.2;
+                    audio.play().catch(e => console.log('Audio play failed:', e));
+                } catch (e) {
+                    console.log('Audio initialization failed:', e);
+                }
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                modeToggle.textContent = '☀️';
+            } else {
+                modeToggle.textContent = '🌙';
+            }
+        }
+
+        // Start countdown to next medication
+        function startCountdown() {
+            // Clear any existing countdown
+            clearInterval(window.countdownInterval);
+            
+            // Find next medication time
+            const now = new Date();
+            let nextMed = null;
+            let smallestDiff = Infinity;
+            
+            appData.medications.forEach(med => {
+                if (!med.taken) {
+                    const [hours, minutes] = med.time.split(':');
+                    const medTime = new Date();
+                    medTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0);
+                    
+                    // If time has passed for today, set for tomorrow
+                    if (medTime < now) {
+                        medTime.setDate(medTime.getDate() + 1);
+                    }
+                    
+                    const diff = medTime - now;
+                    
+                    if (diff < smallestDiff) {
+                        smallestDiff = diff;
+                        nextMed = {
+                            ...med,
+                            time: medTime
+                        };
+                    }
+                }
+            });
+            
+            // If we have a next medication, start countdown
+            if (nextMed) {
+                window.countdownInterval = setInterval(() => {
+                    const now = new Date();
+                    const diff = nextMed.time - now;
+                    
+                    if (diff <= 0) {
+                        countdownElement.textContent = `Time to take ${nextMed.name}!`;
+                        clearInterval(window.countdownInterval);
+                        
+                        // Re-evaluate next med after a minute
+                        setTimeout(startCountdown, 60000);
+                        return;
+                    }
+                    
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    countdownElement.textContent = `Next medication (${nextMed.name}) in: ${hours}h ${minutes}m ${seconds}s`;
+                }, 1000);
+            } else {
+                countdownElement.textContent = 'No upcoming medications';
+            }
+        }
+
+        // Animate mascot
+        function animateMascot() {
+            mascot.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                mascot.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Save data to local storage
+        function saveDataToStorage() {
+            const dataToSave = {
+                medications: appData.medications,
+                moodEntries: appData.moodEntries,
+                calendarData: appData.calendarData
+            };
+            
+            localStorage.setItem('pastelCareData', JSON.stringify(dataToSave));
+        }
+
+        // Load data from local storage
+        function loadDataFromStorage() {
+            const savedData = localStorage.getItem('pastelCareData');
+            
+            if (savedData) {
+                const parsedData = JSON.parse(savedData);
+                
+                appData.medications = parsedData.medications || [];
+                appData.moodEntries = parsedData.moodEntries || [];
+                appData.calendarData = parsedData.calendarData || [];
+                
+                // Set up reminders for loaded medications
+                appData.medications.forEach(med => {
+                    if (!med.taken) {
+                        setMedicationReminder(med);
+                    }
+                });
+            }
+        }
+
+        // Reset all app data (for testing)
+        function resetAllData() {
+            if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+                localStorage.removeItem('pastelCareData');
+                
+                // Clear timers
+                appData.reminderTimers.forEach(timer => {
+                    clearTimeout(timer.timer);
+                });
+                
+                // Reset app data
+                appData = {
+                    medications: [],
+                    moodEntries: [],
+                    calendarData: [],
+                    selectedTags: [],
+                    currentMood: null,
+                    reminderTimers: []
+                };
+                
+                // Reload page
+                location.reload();
+            }
+        }
+
+        // Add ability to remove medications
+        function setupMedicationRemoval() {
+            const removeButtons = document.querySelectorAll('.remove-med-btn');
+            
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    removeMedication(id);
+                });
+            });
+        }
+
+        // Remove medication
+        function removeMedication(id) {
+            if (confirm('Are you sure you want to remove this medication?')) {
+                // Remove any active timers for this medication
+                const timerIndex = appData.reminderTimers.findIndex(timer => timer.id === id);
+                if (timerIndex !== -1) {
+                    clearTimeout(appData.reminderTimers[timerIndex].timer);
+                    appData.reminderTimers.splice(timerIndex, 1);
+                }
+                
+                // Remove medication from data
+                appData.medications = appData.medications.filter(med => med.id !== id);
+                saveDataToStorage();
+                updateMedicationList();
+                updateCalendar();
+                startCountdown();
+            }
+        }
+
+        // Add some sample data if first time user
+        function addSampleData() {
+            if (!localStorage.getItem('pastelCareData') && appData.medications.length === 0) {
+                const now = new Date();
+                const morning = new Date();
+                morning.setHours(8, 0, 0);
+                const evening = new Date();
+                evening.setHours(20, 0, 0);
+                
+                // Only add sample if it's before 8am or after 8pm
+                if (now < morning || now > evening) {
+                    if (confirm('Would you like to add some sample medications to see how the app works?')) {
+                        appData.medications = [
+                            {
+                                id: 1,
+                                name: 'Medication A',
+                                dosage: '10mg',
+                                time: '08:00',
+                                taken: false
+                            },
+                            {
+                                id: 2,
+                                name: 'Medication B',
+                                dosage: '20mg',
+                                time: '20:00',
+                                taken: false
+                            }
+                        ];
+                        
+                        saveDataToStorage();
+                        updateMedicationList();
+                        updateCalendar();
+                        startCountdown();
+                        
+                        appData.medications.forEach(med => {
+                            setMedicationReminder(med);
+                        });
+                    }
+                }
+            }
+        }
+
+        // Check for missed medications from yesterday
+        function checkMissedMedications() {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayString = yesterday.toISOString().split('T')[0];
+            
+            // Logic would go here to check if any medications were missed yesterday
+            // For now, we'll just reset 'taken' status for today
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Reset 'taken' status if it's a new day
+            const lastActiveDate = localStorage.getItem('lastActiveDate');
+            
+            if (lastActiveDate && lastActiveDate !== today) {
+                appData.medications.forEach(med => {
+                    med.taken = false;
+                });
+                saveDataToStorage();
+            }
+            
+            localStorage.setItem('lastActiveDate', today);
+        }
+
+        // Initialize additional features
+        setTimeout(() => {
+            addSampleData();
+            checkMissedMedications();
+        }, 1000);
+    </script>
+</body>
+</html>
