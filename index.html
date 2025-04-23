@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schizo-Help | A Gentle Space for Support</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #f0f8ff, #e6f2ff);
+            color: #5b7b9d;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(148, 175, 209, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header:hover {
+            box-shadow: 0 8px 20px rgba(148, 175, 209, 0.3);
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #4a7aaf;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b93c2;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #7095b8;
+            line-height: 1.7;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #4a7aaf;
+            font-size: 1.8rem;
+        }
+
+        /* Cards Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(148, 175, 209, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(148, 175, 209, 0.4);
+            opacity: 1;
+        }
+
+        .tool-card h3 {
+            color: #4a7aaf;
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+
+        .tool-emoji {
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+
+        .tool-subtitle {
+            color: #6b93c2;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .tool-description {
+            color: #7095b8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .tool-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #6b93c2, #82a8d9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(148, 175, 209, 0.3);
+        }
+
+        .tool-button:hover {
+            background: linear-gradient(45deg, #82a8d9, #9abbeb);
+            box-shadow: 0 5px 15px rgba(148, 175, 209, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: #8babc8;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .intro {
+                font-size: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>Welcome to Schizo-Help</h1>
+            <p class="subtitle">A gentle space to explore tools that support your mind, moment by moment.</p>
+            <p class="intro">
+                Schizo-Help is a part of the Schizo-Ed initiative — a platform designed with care, compassion, and creativity to support people with schizophrenia. You'll find tools to help with sleep, expression, grounding, hope, and more. Explore safely, gently, in your own way.
+            </p>
+        </header>
+
+        <!-- Tools Section -->
+        <section>
+            <h2 class="section-title">Explore Tools for Healing & Support</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: ArtNest -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🎨</span> ArtNest</h3>
+                    <p class="tool-subtitle">Creative Immersion Through Art</p>
+                    <p class="tool-description">
+                        Express your feelings through drawing, poetry, sound, or photography. ArtNest helps you enter a gentle flow state with calming tools for emotional release.
+                    </p>
+                    <a href="arts.html" class="tool-button">Go to ArtNest</a>
+                </div>
+
+                <!-- Tool 2: DreamNest -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🛌</span> DreamNest</h3>
+                    <p class="tool-subtitle">Sleep Support & Insomnia Tools</p>
+                    <p class="tool-description">
+                        A soothing nighttime space with soundscapes, rituals, gentle journaling, and calming visuals — all designed to ease insomnia and nighttime anxiety.
+                    </p>
+                    <a href="dream.html" class="tool-button">Go to DreamNest</a>
+                </div>
+
+                <!-- Tool 3: AnchorMind -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🌀</span> AnchorMind</h3>
+                    <p class="tool-subtitle">Hallucination Grounding Toolkit</p>
+                    <p class="tool-description">
+                        In-the-moment tools to help you gently reality-check, ground yourself, and soothe overwhelming hallucinations or intrusive sensations.
+                    </p>
+                    <a href="hallucinations.html" class="tool-button">Go to AnchorMind</a>
+                </div>
+
+                <!-- Tool 4: Symptom Tracker -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">📊</span> Symptom Tracker</h3>
+                    <p class="tool-subtitle">Track Emotions, Thoughts & Patterns</p>
+                    <p class="tool-description">
+                        A soft, private place to log feelings, thoughts, and symptoms. See patterns over time without pressure or judgment.
+                    </p>
+                    <a href="symptoms.html" class="tool-button">Go to Symptom Tracker</a>
+                </div>
+
+                <!-- Tool 5: Med Helper -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">💊</span> Med Helper</h3>
+                    <p class="tool-subtitle">Medication Tracker & Gentle Reminders</p>
+                    <p class="tool-description">
+                        Stay gently on track with your medications using soothing reminders, progress logs, and motivational support.
+                    </p>
+                    <a href="med.html" class="tool-button">Go to Med Helper</a>
+                </div>
+
+                <!-- Tool 6: Passion Reclaim -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🌱</span> Passion Reclaim</h3>
+                    <p class="tool-subtitle">Negative Symptom Support & Hobbies</p>
+                    <p class="tool-description">
+                        Reconnect with hobbies, curiosity, and little sparks of joy. Gentle prompts and creative pathways to help rebuild interest in life.
+                    </p>
+                    <a href="thefreshstart.html" class="tool-button">Go to Passion Reclaim</a>
+                </div>
+
+                <!-- Tool 7: NewHope -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🌻</span> NewHope</h3>
+                    <p class="tool-subtitle">Mood Lifters & Gentle Engagement</p>
+                    <p class="tool-description">
+                        A collection of soft mood-lifting tools, tiny activities, and kind nudges toward joy, meaning, and connection.
+                    </p>
+                    <a href="" class="tool-button">Go to NewHope</a>
+                </div>
+
+                <!-- Tool 8: SafeNest -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">🛟</span> SafeNest</h3>
+                    <p class="tool-subtitle">Crisis Planning & Suicide Prevention</p>
+                    <p class="tool-description">
+                        Create a safety plan, explore grounding tools, and receive non-judgmental emotional support — all in a gentle and private space.
+                    </p>
+                    <a href="prevention.html" class="tool-button">Go to SafeNest</a>
+                </div>
+
+                <!-- Tool 9: Schizo-Ed Library -->
+                <div class="tool-card">
+                    <h3><span class="tool-emoji">📘</span> Schizo-Ed Library</h3>
+                    <p class="tool-subtitle">Gentle Education Without Stigma</p>
+                    <p class="tool-description">
+                        Learn about schizophrenia from a kind, empowering lens. Research-backed, hopeful, and stigma-free resources.
+                    </p>
+                    <a href="" class="tool-button">Go to Schizo-Ed Library</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Schizo-Help is part of Schizo-Ed — a movement to support, not fix. To hold space, not judge.</p>
+        </footer>
+    </div>
+</body>
+</html>
